@@ -9,6 +9,7 @@ import CobaComponent from "./component/coba";
 function App() {
   return (
     <div>
+      {/* ini buat coba-coba aja */}
       <CobaComponent />
       <TestComponent />
     </div>
