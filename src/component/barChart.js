@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Row,
-  Col,
-  Container,
-  Button,
-  Form,
-  InputGroup,
-  FormControl,
-} from "react-bootstrap";
+import { Row, Col, Container, Button, Form, InputGroup } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import "../style/styles.css";
@@ -99,7 +91,7 @@ const BarChartComponent = () => {
     <Container>
       <Row>
         <Col>
-          <div className="d-flex">
+          <div className="d-flex mt-5">
             <div
               style={{
                 backgroundColor: "#0D28A6",
