@@ -1,7 +1,8 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
+import "../style/styles.css";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -28,7 +29,6 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: "Chart.js Bar Chart - Stacked",
     },
   },
   responsive: true,
@@ -38,13 +38,14 @@ export const options = {
     },
     y: {
       stacked: true,
-      beginAtZero: true, 
-      min: 0, 
-      max: 120, 
+      beginAtZero: true,
+      min: 0,
+      max: 120,
+      text: "Chart.js Bar Chart - Stacked",
       ticks: {
         stepSize: 30,
         callback: (value) => {
-          return value.toString(); 
+          return value.toString();
         },
       },
     },
@@ -67,7 +68,14 @@ const BarChartComponent = () => {
     <Container>
       <Row>
         <Col>
+        <h1>Rented Car Data Visualization</h1>
+        <input></input>
           <Bar options={options} data={data} />
+        </Col>
+      </Row>
+      <Row>
+        <Col className="mt-5">
+          <h1 className="text-center fw-bold">SASASASASASASASASAS</h1>
         </Col>
       </Row>
     </Container>

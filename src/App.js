@@ -12,8 +12,6 @@ function App() {
     <div>
       {/* ini buat coba-coba aja */}
       <BarChartComponent />
-      <CobaComponent />
-      <TestComponent />
     </div>
   );
 }
