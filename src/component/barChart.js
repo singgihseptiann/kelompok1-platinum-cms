@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { Row, Col, Container, Button, Form, InputGroup } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Button,
+  Form,
+  InputGroup,
+  Table,
+  Pagination,
+} from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import "../style/styles.css";
+import MyTable from "./myTable";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -111,25 +121,28 @@ const BarChartComponent = () => {
                   name="month"
                   onChange={handleOptionChange}
                   value={selectedOption}
+                  style={{ maxWidth: "200px" }}
                 >
-                  <option value="">Select an option</option>
                   <option value="Option 1">Option 1</option>
                   <option value="Option 2">Option 2</option>
                   <option value="Option 3">Option 3</option>
                 </Form.Select>
-                <Button variant="success" onClick={handleGoClick}>
+                <Button
+                  onClick={handleGoClick}
+                  style={{ backgroundColor: "#0D28A6" }}
+                >
                   Go
                 </Button>
               </InputGroup>
             </Form.Group>
           </Form>
-          <Bar options={options} data={data} />
+          <Bar className="" options={options} data={data} />
         </Col>
       </Row>
       <Row>
         <Col className="mt-5">
-          <p className=" fw-bold">Dashboard</p>
-          <div className="d-flex">
+          {/* <p className=" fw-bold">Dashboard</p> */}
+          {/* <div className="d-flex">
             <div
               style={{
                 backgroundColor: "#0D28A6",
@@ -139,7 +152,8 @@ const BarChartComponent = () => {
               }}
             ></div>
             <p className=" fw-bold">List Order</p>
-          </div>
+          </div> */}
+          <MyTable />
         </Col>
       </Row>
     </Container>
