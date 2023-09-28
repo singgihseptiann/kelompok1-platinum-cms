@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Table, Pagination, Container } from "react-bootstrap";
+import { Table, Pagination, Container, Row, Col } from "react-bootstrap";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
 
-// Fungsi untuk menghasilkan data palsu
+// Fungsi untuk membuat data palsu
 const generateData = () => {
   const data = [];
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= 100; i++) {
     data.push({
       id: i,
       firstName: `First Name ${i}`,
@@ -52,6 +52,9 @@ const MyTable = () => {
 
   return (
     <Container>
+      <Row>
+        <Col></Col>
+      </Row>
       <div>
         <p className=" fw-bold">Dashboard</p>
         <div className="d-flex">
@@ -65,7 +68,7 @@ const MyTable = () => {
           ></div>
           <p className=" fw-bold">List Order</p>
         </div>
-        <Table striped bordered hover>
+        <Table striped bordered hover className="mt-4">
           <thead>
             <tr>
               <th>No</th>
@@ -126,6 +129,7 @@ const MyTable = () => {
         </Table>
         <div className="d-flex justify-content-between align-items-center">
           <div>
+            <p>limit</p>
             <select
               id="limitDropdown"
               value={limit}
