@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -11,6 +10,7 @@ import Topbar from "./component/Topbar";
 import Sidebar from "./component/sidebar";
 import "./style/Styles.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import BarChartComponent from "./component/barChart";
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
       <Topbar />
       <Sidebar />
       <Routes>
+        <Route path="" element={<BarChartComponent />} />
         <Route path="login" element={<Login />} />
-        
       </Routes>
     </BrowserRouter>
   );
