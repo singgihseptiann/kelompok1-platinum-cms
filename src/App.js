@@ -15,9 +15,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
+      <Topbar />
+      <Sidebar />
       <Routes>
-
         <Route path="login" element={<Login />} />
+        
       </Routes>
     </BrowserRouter>
   );
