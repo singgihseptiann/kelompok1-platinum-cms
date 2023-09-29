@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { InputGroup } from "react-bootstrap";
 import Sidebar from "./sidebar";
-import "../style/Styles.css";
+// import "../style/Styles.css";
 
 function Topbar() {
   return (

@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Topbar from "./component/Topbar";
 import Sidebar from "./component/sidebar";
-import "./style/Styles.css";
+// import "./style/Styles.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import BarChartComponent from "./component/barChart";
 
