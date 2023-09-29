@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-import "../style/styles.css";
+// import "../style/styles.css";
 import MyTable from "./myTable";
 import {
   Chart as ChartJS,
