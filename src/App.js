@@ -12,8 +12,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<MyTable />} /> */}
-        <Route path="/" element={<BarChartComponent />} />
         <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
