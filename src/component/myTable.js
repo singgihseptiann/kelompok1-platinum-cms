@@ -20,7 +20,7 @@ const generateData = () => {
 
 const MyTable = () => {
   const [sortOrder, setSortOrder] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(1); // State untuk halaman saat ini
+  const [currentPage, setCurrentPage] = useState(1); // State untuk halaman saat ini yang ditampilkan
   const [limit, setLimit] = useState(5); // State untuk limit data yang ditampilkan
   // Fungsi untuk mengubah urutan pengurutan saat kolom "User Email" diklik
   const handleSortClick = () => {
@@ -29,7 +29,7 @@ const MyTable = () => {
     // Lakukan pengurutan data Anda sesuai dengan `newSortOrder` di sini
   };
 
-  // Menggunakan data palsu yang dihasilkan oleh generateData
+  // Menggunakan data palsu yang dihasilkan dari fungsi  generateData
   const tableData = generateData();
 
   // Fungsi untuk mengatur halaman saat ini
