@@ -10,7 +10,7 @@ import Sidebar from "./sidebar";
 
 function Topbar() {
   return (
-    <Navbar expand="lg" className="bg-white">
+    <Navbar expand="lg" className="bg-white" style={{ zIndex: -999 }}>
       <Container fluid className="d-flex justify-content-end">
         <Form className="">
           <InputGroup>

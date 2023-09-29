@@ -17,8 +17,6 @@ const Sidebar = () => {
     <div
       style={{
         marginTop: -60,
-        position: "relative",
-        zIndex: 999,
       }}
     >
       <div
@@ -43,12 +41,10 @@ const Sidebar = () => {
           <CDBSidebarContent className="sidebar-content">
             <CDBSidebarMenu>
               <NavLink exact to="/" activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon="columns">
-                  Dashboard
-                </CDBSidebarMenuItem>
+                <CDBSidebarMenuItem icon="home">Dashboard</CDBSidebarMenuItem>
               </NavLink>
               <NavLink exact to="/tables" activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon="car">Cars</CDBSidebarMenuItem>
+                <CDBSidebarMenuItem icon="truck">Cars</CDBSidebarMenuItem>
               </NavLink>
             </CDBSidebarMenu>
           </CDBSidebarContent>

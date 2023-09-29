@@ -98,7 +98,7 @@ const BarChartComponent = () => {
   }
 
   return (
-    <Container>
+    <Container style={{ marginTop: "-570px" }} className="me-5">
       <Row>
         <Col>
           <div className="d-flex mt-5">
