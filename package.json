@@ -3,12 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@faker-js/faker": "^8.1.0",
-    "@reduxjs/toolkit": "^1.9.5",
-=======
     "@reduxjs/toolkit": "^1.9.6",
->>>>>>> 195c588a18bdced3e9b5a75fb5d0976a333e7868
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -20,11 +15,7 @@
     "react-bootstrap": "^2.8.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
-    "react-icons": "^4.11.0",
-=======
     "react-redux": "^8.1.2",
->>>>>>> 195c588a18bdced3e9b5a75fb5d0976a333e7868
     "react-router": "^6.16.0",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
