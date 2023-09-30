@@ -1,0 +1,108 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+}
+
+.login-left {
+  width: 60%;
+}
+
+.login-left img {
+  /* width: 958px; */
+  width: 100%;
+  height: 900px;
+}
+
+.login-logo {
+  width: 100px;
+  height: 34px;
+  background-color: #cfd4ed;
+  margin-bottom: 32px;
+}
+
+.login-right h1 {
+  color: #000;
+  font-family: Arial;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  margin-bottom: 32px;
+}
+
+.login-input label {
+  color: #222;
+  font-family: Arial;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 8.93px;
+}
+
+.login-input input {
+  width: 370px;
+  height: 38px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.email input {
+  margin-bottom: 16px;
+}
+
+.password input {
+  margin-bottom: 31.75px;
+}
+
+.login-input button {
+  width: 370px;
+  padding: 8px 12px;
+  border-radius: 2px;
+  background-color: #0d28a6;
+  border: none;
+  font-family: Arial;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.email input::placeholder,
+.password input::placeholder {
+  color: #a5a5a5;
+  font-family: Arial;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  padding-left: 15px;
+}
+
+.login-input {
+  position: relative;
+}
+
+.success {
+  font-family: Arial;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: green;
+  position: absolute;
+}
+
+.error {
+  font-family: Arial;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: red;
+  position: absolute;
+}
