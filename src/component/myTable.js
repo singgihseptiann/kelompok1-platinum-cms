@@ -26,7 +26,7 @@ const MyTable = () => {
   const handleSortClick = () => {
     const newSortOrder = sortOrder === "asc" ? "desc" : "asc"; // Toggle antara naik (asc) dan turun (desc)
     setSortOrder(newSortOrder);
-    // Lakukan pengurutan data Anda sesuai dengan `newSortOrder` di sini
+    // Lakukan pengurutan data  sesuai dengan `newSortOrder` di sini
   };
 
   // Menggunakan data palsu yang dihasilkan dari fungsi  generateData
