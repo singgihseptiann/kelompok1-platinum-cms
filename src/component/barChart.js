@@ -22,6 +22,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Topbar from "./Topbar";
+import Sidebar from "./sidebar";
 
 ChartJS.register(
   CategoryScale,
@@ -98,6 +100,9 @@ const BarChartComponent = () => {
   }
 
   return (
+    <>
+    <Topbar />
+    <Sidebar />
     <Container>
       <Row>
         <Col>
@@ -157,6 +162,7 @@ const BarChartComponent = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 
