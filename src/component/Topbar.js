@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { InputGroup } from "react-bootstrap";
 import Sidebar from "./sidebar";
-import "../style/Styles.css";
+// import "../style/Styles.css";
 
 function Topbar() {
   return (
@@ -14,12 +14,7 @@ function Topbar() {
       <Container fluid className="d-flex justify-content-end">
         <Form className="">
           <InputGroup>
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="float-end"
-              aria-label="Search"
-            />
+            <Form.Control type="search" placeholder="Search" className="float-end" aria-label="Search" />
 
             <Button variant="outline-success">Search</Button>
           </InputGroup>
@@ -38,11 +33,7 @@ function Topbar() {
         </div>
 
         <Nav>
-          <NavDropdown
-            id="nav-dropdown-dark-example"
-            title="Halim"
-            menuVariant="dark"
-          >
+          <NavDropdown id="nav-dropdown-dark-example" title="Halim" menuVariant="dark">
             <NavDropdown.Item href="#action/3.1">Singgih</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Fandi</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Ilham</NavDropdown.Item>

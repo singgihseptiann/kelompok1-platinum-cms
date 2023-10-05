@@ -11,8 +11,28 @@ import {
 import { NavLink } from "react-router-dom";
 import Topbar from "./Topbar";
 import { Breadcrumb } from "react-bootstrap";
+import { loginAdmin } from "../api/index";
+import { useEffect } from "react";
 
 const Sidebar = () => {
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const login = await loginAdmin({
+          email: "admin@bcr.io",
+          password: "123456",
+        });
+
+        localStorage.setItem("token", login.data.access_token);
+
+        console.log(localStorage.getItem("token"));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getToken();
+  }, []);
+
   return (
     <div
       style={{
@@ -30,12 +50,7 @@ const Sidebar = () => {
       >
         <CDBSidebar textColor="#fff" backgroundColor=" #0D28A6">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-            <a
-              href="/"
-              className="text-decoration-none"
-              style={{ color: "inherit" }}
-              title="Rental"
-            >
+            <a href="/" className="text-decoration-none" style={{ color: "inherit" }} title="Rental">
               Rental
             </a>
           </CDBSidebarHeader>
@@ -43,11 +58,9 @@ const Sidebar = () => {
           <CDBSidebarContent className="sidebar-content">
             <CDBSidebarMenu>
               <NavLink exact to="/" activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon="columns">
-                  Dashboard
-                </CDBSidebarMenuItem>
+                <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
               </NavLink>
-              <NavLink exact to="/tables" activeClassName="activeClicked">
+              <NavLink exact to="/list-car" activeClassName="activeClicked">
                 <CDBSidebarMenuItem icon="car">Cars</CDBSidebarMenuItem>
               </NavLink>
             </CDBSidebarMenu>
