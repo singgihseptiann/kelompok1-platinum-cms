@@ -13,6 +13,7 @@ import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 // import "../style/styles.css";
 import MyTable from "./myTable";
+import BurroComponent from "./Burro";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -136,7 +137,7 @@ const BarChartComponent = () => {
               </InputGroup>
             </Form.Group>
           </Form>
-          <Bar className="" options={options} data={data} />
+          <Bar className="h-60 w-60" options={options} data={data} />
         </Col>
       </Row>
       <Row>
@@ -154,6 +155,7 @@ const BarChartComponent = () => {
             <p className=" fw-bold">List Order</p>
           </div> */}
           <MyTable />
+          <BurroComponent />
         </Col>
       </Row>
     </Container>

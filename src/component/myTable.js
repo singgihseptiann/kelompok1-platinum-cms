@@ -1,54 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Pagination, Container, Row, Col } from "react-bootstrap";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
-
-// Fungsi untuk membuat data palsu
-const generateData = () => {
-  const data = [];
-  for (let i = 1; i <= 100; i++) {
-    data.push({
-      id: i,
-      firstName: `First Name ${i}`,
-      lastName: `Last Name ${i}`,
-      username: `@username${i}`,
-      email: `@mail${i}`,
-      category: `category${i}`,
-    });
-  }
-  return data;
-};
-
+import axios from "axios";
+import moment from "moment";
 const MyTable = () => {
   const [sortOrder, setSortOrder] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(1); // State untuk halaman saat ini yang ditampilkan
-  const [limit, setLimit] = useState(5); // State untuk limit data yang ditampilkan
-  // Fungsi untuk mengubah urutan pengurutan saat kolom "User Email" diklik
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [data, setData] = useState([]); // State untuk menyimpan data dari API
+
+  // Fungsi untuk mengambil data dari API
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "https://api-car-rental.binaracademy.org/admin/v2/order",
+        {
+          headers: {
+            access_token: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      // Mengambil array dari response API (response.data.orders)
+      const apiData = response.data.orders;
+      setData(apiData);
+    } catch (error) {
+      console.error("Error fetching data from API:", error);
+    }
+  };
+
+  // Mengambil data dari API saat komponen dimuat
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleSortClick = () => {
-    const newSortOrder = sortOrder === "asc" ? "desc" : "asc"; // Toggle antara naik (asc) dan turun (desc)
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newSortOrder);
     // Lakukan pengurutan data Anda sesuai dengan `newSortOrder` di sini
   };
 
-  // Menggunakan data palsu yang dihasilkan dari fungsi  generateData
-  const tableData = generateData();
-
-  // Fungsi untuk mengatur halaman saat ini
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  // Fungsi untuk mengatur limit data yang ditampilkan
-  const handleLimitChange = (event) => {
-    const newLimit = parseInt(event.target.value, 10);
-    setLimit(newLimit);
-    setCurrentPage(1); // Set halaman kembali ke halaman pertama ketika limit diubah
-  };
-
   // Logika untuk menentukan data yang akan ditampilkan berdasarkan halaman saat ini
-  const itemsPerPage = limit; // Jumlah item per halaman
+  const itemsPerPage = limit;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedData = tableData.slice(startIndex, endIndex);
+  const displayedData = data.slice(startIndex, endIndex);
 
   return (
     <Container>
@@ -115,14 +111,15 @@ const MyTable = () => {
             </tr>
           </thead>
           <tbody>
-            {displayedData.map((row) => (
-              <tr key={row.id}>
-                <td>{row.id}</td>
-                <td>{row.firstName}</td>
-                <td>{row.lastName}</td>
-                <td>{row.username}</td>
-                <td>{row.email}</td>
-                <td>{row.category}</td>
+            {displayedData.map((row, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{row.User.email}</td>
+                <td>{row.Car ? row.Car.name : "Car"}</td>
+                <td>{moment(row.start_rent_at).format("DD MMMM YYYY")}</td>
+                <td>{moment(row.finish_rent_at).format("DD MMMM YYYY")}</td>
+
+                <td>{row.Category ? row.Category.name : "Category"}</td>
               </tr>
             ))}
           </tbody>
@@ -133,7 +130,10 @@ const MyTable = () => {
             <select
               id="limitDropdown"
               value={limit}
-              onChange={handleLimitChange}
+              onChange={(e) => {
+                setLimit(parseInt(e.target.value, 10));
+                setCurrentPage(1);
+              }}
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -141,18 +141,18 @@ const MyTable = () => {
             </select>
           </div>
           <Pagination>
-            <Pagination.First onClick={() => handlePageChange(1)} />
+            <Pagination.First onClick={() => setCurrentPage(1)} />
             <Pagination.Prev
               onClick={() =>
-                handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
+                setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1))
               }
             />
-            {Array.from({ length: Math.ceil(tableData.length / limit) }).map(
+            {Array.from({ length: Math.ceil(data.length / limit) }).map(
               (page, index) => (
                 <Pagination.Item
                   key={index}
                   active={currentPage === index + 1}
-                  onClick={() => handlePageChange(index + 1)}
+                  onClick={() => setCurrentPage(index + 1)}
                 >
                   {index + 1}
                 </Pagination.Item>
@@ -160,17 +160,15 @@ const MyTable = () => {
             )}
             <Pagination.Next
               onClick={() =>
-                handlePageChange(
-                  currentPage < Math.ceil(tableData.length / limit)
-                    ? currentPage + 1
-                    : currentPage
+                setCurrentPage((prevPage) =>
+                  prevPage < Math.ceil(data.length / limit)
+                    ? prevPage + 1
+                    : prevPage
                 )
               }
             />
             <Pagination.Last
-              onClick={() =>
-                handlePageChange(Math.ceil(tableData.length / limit))
-              }
+              onClick={() => setCurrentPage(Math.ceil(data.length / limit))}
             />
           </Pagination>
         </div>
