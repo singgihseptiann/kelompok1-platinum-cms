@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { Row, Col, Container, Button, Form, InputGroup } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Button,
+  Form,
+  InputGroup,
+  Table,
+  Pagination,
+} from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
+// import "../style/styles.css";
 import MyTable from "./myTable";
-import BurroComponent from "./Burro";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +22,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Topbar from "./Topbar";
+import Sidebar from "./sidebar";
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +35,7 @@ ChartJS.register(
 );
 
 const labels = Array.from({ length: 30 }, (_, index) => (index + 1).toString());
+
 const options = {
   plugins: {
     title: {
@@ -88,7 +100,10 @@ const BarChartComponent = () => {
   }
 
   return (
-    <Container style={{ marginTop: "-570px" }} className="me-5">
+    <>
+    <Topbar />
+    <Sidebar />
+    <Container>
       <Row>
         <Col>
           <div className="d-flex mt-5">
@@ -126,7 +141,7 @@ const BarChartComponent = () => {
               </InputGroup>
             </Form.Group>
           </Form>
-          <Bar className="h-60 w-60" options={options} data={data} />
+          <Bar className="" options={options} data={data} />
         </Col>
       </Row>
       <Row>
@@ -144,10 +159,10 @@ const BarChartComponent = () => {
             <p className=" fw-bold">List Order</p>
           </div> */}
           <MyTable />
-          <BurroComponent />
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 

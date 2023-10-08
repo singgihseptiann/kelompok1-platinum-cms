@@ -34,7 +34,7 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 function Topbar() {
   return (
-    <Navbar expand="lg" className="bg-white" style={{ zIndex: -999 }}>
+    <Navbar expand="lg" className="bg-white">
       <Container fluid className="d-flex justify-content-end">
         <Form className="">
           <InputGroup>
