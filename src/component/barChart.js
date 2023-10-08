@@ -101,67 +101,58 @@ const BarChartComponent = () => {
 
   return (
     <>
-    <Topbar />
-    <Sidebar />
-    <Container>
-      <Row>
-        <Col>
-          <div className="d-flex mt-5">
-            <div
-              style={{
-                backgroundColor: "#0D28A6",
-                width: "10px",
-                height: "34px",
-                marginRight: "10px",
-              }}
-            ></div>
-            <p className=" fw-bold">Rented Car Data Visualization</p>
-          </div>
-          <Form>
-            <Form.Group controlId="input2">
-              <Form.Label className="fw-bold">Month</Form.Label>
-              <InputGroup>
-                <Form.Select
-                  aria-label="Default select example"
-                  name="month"
-                  onChange={handleOptionChange}
-                  value={selectedOption}
-                  style={{ maxWidth: "200px" }}
-                >
-                  <option value="Option 1">Option 1</option>
-                  <option value="Option 2">Option 2</option>
-                  <option value="Option 3">Option 3</option>
-                </Form.Select>
-                <Button
-                  onClick={handleGoClick}
-                  style={{ backgroundColor: "#0D28A6" }}
-                >
-                  Go
-                </Button>
-              </InputGroup>
-            </Form.Group>
-          </Form>
-          <Bar className="" options={options} data={data} />
-        </Col>
-      </Row>
-      <Row>
-        <Col className="mt-5">
-          {/* <p className=" fw-bold">Dashboard</p> */}
-          {/* <div className="d-flex">
-            <div
-              style={{
-                backgroundColor: "#0D28A6",
-                width: "10px",
-                height: "34px",
-                marginRight: "10px",
-              }}
-            ></div>
-            <p className=" fw-bold">List Order</p>
-          </div> */}
-          <MyTable />
-        </Col>
-      </Row>
-    </Container>
+      <Topbar />
+      <Sidebar />
+      <Container>
+        <Row>
+          <Col>
+            <div className="ms-5 mt-5">
+              <div className="d-flex ">
+                <div
+                  style={{
+                    backgroundColor: "#0D28A6",
+                    width: "10px",
+                    height: "34px",
+                    marginRight: "10px",
+                  }}
+                ></div>
+                <p className=" fw-bold">Rented Car Data Visualization</p>
+              </div>
+              <Form>
+                <Form.Group controlId="input2">
+                  <Form.Label className="fw-bold">Month</Form.Label>
+                  <InputGroup>
+                    <Form.Select
+                      aria-label="Default select example"
+                      name="month"
+                      onChange={handleOptionChange}
+                      value={selectedOption}
+                      style={{ maxWidth: "200px" }}
+                    >
+                      <option value="Option 1">Option 1</option>
+                      <option value="Option 2">Option 2</option>
+                      <option value="Option 3">Option 3</option>
+                    </Form.Select>
+                    <Button
+                      onClick={handleGoClick}
+                      style={{ backgroundColor: "#0D28A6" }}
+                    >
+                      Go
+                    </Button>
+                  </InputGroup>
+                </Form.Group>
+              </Form>
+              <div style={{ marginTop: "-20px" }}>
+                <Bar className="" options={options} data={data} />
+                <MyTable />
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="mt-5"></Col>
+        </Row>
+      </Container>
     </>
   );
 };
