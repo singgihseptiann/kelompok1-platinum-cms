@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Topbar from "./Topbar";
 import { Breadcrumb } from "react-bootstrap";
 import {
@@ -58,7 +58,10 @@ const Sidebar = () => {
           </NavText>
           <NavItem eventKey="Dashboard/Dashboard">
             <NavText title="Dashboard">
-              <p style={{ fontWeight: "bold" }}>Dashboard</p>
+              <Link to="/dashboard">
+                {" "}
+                <p style={{ fontWeight: "bold" }}>Dashboard</p>
+              </Link>
             </NavText>
           </NavItem>
         </NavItem>

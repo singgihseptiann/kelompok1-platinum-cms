@@ -150,7 +150,20 @@ const BarChartComponent = () => {
           </Col>
         </Row>
         <Row>
-          <Col className="mt-5"></Col>
+          <Col className="mt-5">
+            {/* <p className=" fw-bold">Dashboard</p> */}
+            {/* <div className="d-flex">
+            <div
+              style={{
+                backgroundColor: "#0D28A6",
+                width: "10px",
+                height: "34px",
+                marginRight: "10px",
+              }}
+            ></div>
+            <p className=" fw-bold">List Order</p>
+          </div> */}
+          </Col>
         </Row>
       </Container>
     </>
