@@ -75,9 +75,10 @@ function Topbar() {
           >
             <NavDropdown.Item href="#action/3.1">Singgih</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Fandi</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Ilham</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Halim</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Rifki</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Rifki</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Container>
