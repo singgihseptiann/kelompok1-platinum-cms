@@ -34,8 +34,8 @@ const BarChartComponent = () => {
       try {
         const baseUrl =
           "https://api-car-rental.binaracademy.org/admin/order/reports";
-        const fromDate = "2022-01-01";
-        const untilDate = "2022-12-31";
+        const fromDate = "2023-01-01";
+        const untilDate = "2023-12-31";
         const fullUrl = `${baseUrl}?from=${fromDate}&until=${untilDate}`;
 
         const axiosConfig = {
@@ -123,6 +123,10 @@ const BarChartComponent = () => {
     maintainAspectRatio: false,
     scales: {
       y: {
+        title: {
+          display: true,
+          text: "Amount of Car Rented",
+        },
         suggestedMin: 0,
         suggestedMax: 120,
         beginAtZero: true,
@@ -131,6 +135,7 @@ const BarChartComponent = () => {
         },
       },
     },
+
     plugins: {
       title: {
         display: true,
@@ -179,18 +184,18 @@ const BarChartComponent = () => {
                       value={selectedMonth}
                     >
                       <option value="">Select a month</option>
-                      <option value="2022-01">January - 2023</option>
-                      <option value="2022-02">February - 2023</option>
-                      <option value="2022-03">March - 2023</option>
-                      <option value="2022-04">April - 2023</option>
-                      <option value="2022-05">May - 2023</option>
-                      <option value="2022-06">June - 2023</option>
-                      <option value="2022-07">July - 2023</option>
-                      <option value="2022-08">August - 2023</option>
-                      <option value="2022-09">September - 2023</option>
-                      <option value="2022-10">October - 2023</option>
-                      <option value="2022-11">November - 2023</option>
-                      <option value="2022-12">December - 2023</option>
+                      <option value="2023-01">January - 2023</option>
+                      <option value="2023-02">February - 2023</option>
+                      <option value="2023-03">March - 2023</option>
+                      <option value="2023-04">April - 2023</option>
+                      <option value="2023-05">May - 2023</option>
+                      <option value="2023-06">June - 2023</option>
+                      <option value="2023-07">July - 2023</option>
+                      <option value="2023-08">August - 2023</option>
+                      <option value="2023-09">September - 2023</option>
+                      <option value="2023-10">October - 2023</option>
+                      <option value="2023-11">November - 2023</option>
+                      <option value="2023-12">December - 2023</option>
                     </Form.Select>
                     <Button style={{ backgroundColor: "#0D28A6" }}>Go</Button>
                   </InputGroup>

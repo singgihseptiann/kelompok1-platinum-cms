@@ -40,6 +40,14 @@ const TableOrder = () => {
     setSortOrder(newSortOrder);
     // Lakukan pengurutan data Anda sesuai dengan `newSortOrder` di sini
   };
+  function formatRupiah(angka) {
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+    return formatter.format(angka);
+  }
 
   // Logika untuk menentukan data yang akan ditampilkan berdasarkan halaman saat ini
   const itemsPerPage = limit;
@@ -67,8 +75,10 @@ const TableOrder = () => {
             <Table striped bordered hover className="mt-4">
               <thead>
                 <tr>
-                  <th>No</th>
-                  <th>
+                  <th className="" style={{ backgroundColor: "#cfd4ed" }}>
+                    No
+                  </th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
                     User Email{" "}
                     {sortOrder === "asc" ? (
                       <FaSortUp onClick={handleSortClick} />
@@ -76,7 +86,7 @@ const TableOrder = () => {
                       <FaSortDown onClick={handleSortClick} />
                     )}
                   </th>
-                  <th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
                     Car{" "}
                     {sortOrder === "asc" ? (
                       <FaSortUp onClick={handleSortClick} />
@@ -84,7 +94,7 @@ const TableOrder = () => {
                       <FaSortDown onClick={handleSortClick} />
                     )}
                   </th>
-                  <th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
                     Start Rent{" "}
                     {sortOrder === "asc" ? (
                       <FaSortUp onClick={handleSortClick} />
@@ -92,7 +102,7 @@ const TableOrder = () => {
                       <FaSortDown onClick={handleSortClick} />
                     )}
                   </th>
-                  <th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
                     Finish Rent{" "}
                     {sortOrder === "asc" ? (
                       <FaSortUp onClick={handleSortClick} />
@@ -100,7 +110,15 @@ const TableOrder = () => {
                       <FaSortDown onClick={handleSortClick} />
                     )}
                   </th>
-                  <th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
+                    Price{" "}
+                    {sortOrder === "asc" ? (
+                      <FaSortUp onClick={handleSortClick} />
+                    ) : (
+                      <FaSortDown onClick={handleSortClick} />
+                    )}
+                  </th>
+                  <th style={{ backgroundColor: "#cfd4ed" }}>
                     Category{" "}
                     {sortOrder === "asc" ? (
                       <FaSortUp onClick={handleSortClick} />
@@ -118,7 +136,7 @@ const TableOrder = () => {
                     <td>{row.Car ? row.Car.name : "Car"}</td>
                     <td>{moment(row.start_rent_at).format("DD MMMM YYYY")}</td>
                     <td>{moment(row.finish_rent_at).format("DD MMMM YYYY")}</td>
-
+                    <td>{formatRupiah(row.total_price)}</td>
                     <td>{row.Category ? row.Category.name : "Category"}</td>
                   </tr>
                 ))}

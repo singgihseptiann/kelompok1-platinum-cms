@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   token: "",
   email: "",
-  name: "",
+  role: "",
 };
 
 const auth = createSlice({
@@ -11,15 +11,16 @@ const auth = createSlice({
   initialState,
   reducers: {
     registerAuth: (state, action) => {
-      state.token = action.payload.secret;
-      state.name = action.payload.name;
+      state.token = action.payload.access_token;
+      state.email = action.payload.email;
+      state.role = action.payload.role;
     },
     logOut: (state, action) => {},
     remakeToken: (state, action) => {},
   },
 });
 
-export const { registerAuth, logOut, remakeToken } = auth.actions;
+export const { registerAuth, logOut } = auth.actions;
 export default auth.reducer;
 
 // import { useDispatch } from "react-redux";

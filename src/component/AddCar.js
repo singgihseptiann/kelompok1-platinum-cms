@@ -40,7 +40,6 @@ const AddCar = (props) => {
 
   return (
     <div>
-      <Topbar />
       <Sidebar />
       <h2>Add New Car</h2>
       <Card
