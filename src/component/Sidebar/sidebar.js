@@ -69,7 +69,7 @@ const Sidebar = () => {
           </NavText>
           <NavItem eventKey="Cars/Cars">
             <NavText title="Cars">
-              <Link to="add-car">
+              <Link to="list-car">
                 <p style={{ fontWeight: "bold" }}>Cars</p>
               </Link>
             </NavText>
