@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Container, Button, Form, InputGroup } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Button,
+  Form,
+  InputGroup,
+  Breadcrumb,
+} from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import moment from "moment";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { AiOutlineRight } from "react-icons/ai";
 import {
   Chart as ChartJS,
   BarElement,
@@ -29,6 +40,7 @@ const BarChartComponent = () => {
   );
   const [chartData, setChartData] = useState([]);
 
+  const token = useSelector((state) => state.auth.token);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,7 +52,7 @@ const BarChartComponent = () => {
 
         const axiosConfig = {
           headers: {
-            access_token: localStorage.getItem("token"),
+            access_token: token,
           },
         };
 
@@ -102,23 +114,6 @@ const BarChartComponent = () => {
     ],
   };
 
-  const customTooltipPlugin = {
-    beforeRender: function (chart, args, options) {
-      const { tooltipModel, ctx } = args;
-      const { dataIndex } = tooltipModel;
-
-      if (dataIndex !== undefined) {
-        const dataset = chart.data.datasets[tooltipModel.datasetIndex];
-        const value = dataset.data[dataIndex];
-
-        const tooltipText = `${dataset.label}: ${value}`;
-        ctx.font = "16px Arial";
-        ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-        ctx.fillText(tooltipText, tooltipModel.x, tooltipModel.y - 10);
-      }
-    },
-  };
-
   const options = {
     maintainAspectRatio: false,
     scales: {
@@ -126,6 +121,10 @@ const BarChartComponent = () => {
         title: {
           display: true,
           text: "Amount of Car Rented",
+          font: {
+            size: 16, // Font size
+            weight: "bold", // Font weight
+          },
         },
         suggestedMin: 0,
         suggestedMax: 120,
@@ -160,6 +159,17 @@ const BarChartComponent = () => {
       <Container>
         <Row>
           <Col>
+            <Breadcrumb className="mt-5">
+              <div className="fw-bold">Dashboard</div>
+              <span className="breadcrumb-separator">
+                {" "}
+                <AiOutlineRight />
+              </span>
+              <Breadcrumb.Item>
+                <Link to="/dashboard">Dashboard</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+
             <div className="ms-5 mt-5">
               <div className="d-flex">
                 <div

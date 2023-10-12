@@ -5,10 +5,13 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { InputGroup } from "react-bootstrap";
-import Sidebar from "./sidebar";
-// import "../style/Styles.css";
-import React from "react";
+import { logOut } from "../../store/Auth";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import Sidebar from "../Sidebar/sidebar";
 
+import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { Breadcrumb } from "react-bootstrap";
@@ -29,10 +32,16 @@ import SideNav, {
   NavText,
 } from "@trendmicro/react-sidenav";
 
-// Be sure to include styles at some point, probably during your bootstraping
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 function Topbar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate("/login");
+  };
+  const email = useSelector((state) => state.auth.email);
   return (
     <Navbar expand="lg" className="bg-white">
       <Container fluid className="d-flex justify-content-end">
@@ -67,18 +76,14 @@ function Topbar() {
           H
         </div>
 
-        <Nav>
+        <Nav className="">
           <NavDropdown
             id="nav-dropdown-dark-example"
-            title="Halim"
+            title={email}
             menuVariant="dark"
           >
-            <NavDropdown.Item href="#action/3.1">Singgih</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Fandi</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Halim</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Rifki</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={handleLogOut}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Container>

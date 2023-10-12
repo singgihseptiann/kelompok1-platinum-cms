@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link, NavLink } from "react-router-dom";
-import Topbar from "./Topbar";
+import Topbar from "../Topbar/Topbar";
 import { Breadcrumb } from "react-bootstrap";
 import {
   CDBSidebar,
@@ -10,7 +10,7 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
-  //  CDBSidebarSubmenu,
+  //  CDBSidebarSubmenu,s
 } from "cdbreact";
 
 import SideNav, {
@@ -58,8 +58,7 @@ const Sidebar = () => {
           </NavText>
           <NavItem eventKey="Dashboard/Dashboard">
             <NavText title="Dashboard">
-              <Link to="/dashboard-rented">
-                {" "}
+              <Link to="/dashboard">
                 <p style={{ fontWeight: "bold" }}>Dashboard</p>
               </Link>
             </NavText>
@@ -71,11 +70,12 @@ const Sidebar = () => {
           </NavIcon>
 
           <NavText style={{ paddingRight: 32 }} title="Cars">
+            {" "}
             <p style={{ color: "#CFD4ED" }}> CARS</p>
           </NavText>
           <NavItem eventKey="Cars/Cars">
             <NavText title="Cars">
-              <Link to="/cars">
+              <Link to="add-car">
                 <p style={{ fontWeight: "bold" }}>Cars</p>
               </Link>
             </NavText>

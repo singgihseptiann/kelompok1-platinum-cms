@@ -5,10 +5,10 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Container, Button } from "react-bootstrap";
-import "../styles/editcars.css";
+import "../../styles/editcars.css";
 import { Link } from "react-router-dom";
-import Topbar from "../component/Topbar";
-import Sidebar from "../component/sidebar";
+import Topbar from "../Topbar/Topbar";
+import Sidebar from "../Sidebar/sidebar";
 
 const EditCars = () => {
   const [data, setData] = useState({});
@@ -88,8 +88,6 @@ const EditCars = () => {
 
   return (
     <div>
-      <Topbar />
-      <Sidebar />
       <div>
         <Container>
           <h1>Edit Cars</h1>

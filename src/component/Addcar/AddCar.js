@@ -3,8 +3,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import React, { useState } from "react";
-import Topbar from "./Topbar";
-import Sidebar from "./sidebar";
 
 const AddCar = (props) => {
   const [form, setForm] = useState({
@@ -40,7 +38,6 @@ const AddCar = (props) => {
 
   return (
     <div>
-      <Sidebar />
       <h2>Add New Car</h2>
       <Card
         body
