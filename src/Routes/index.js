@@ -4,6 +4,7 @@ import Login from "../pages/Loginpage/Login";
 import DashboardHeader from "../pages/Header/Dashboard";
 import EditCars from "../component/Editcar/EditCars";
 import AddCar from "../component/Addcar/AddCar";
+import ListCarComponent from "../component/Listcar/listcar";
 // import AddCar from "../component/AddCar";
 const routes = [
   {
@@ -24,11 +25,15 @@ const routes = [
       },
       {
         path: "edit-cars/:id",
-        element: <EditCars/>,
+        element: <EditCars />,
       },
       {
         path: "add-car",
         element: <AddCar />,
+      },
+      {
+        path: "list-car",
+        element: <ListCarComponent />,
       },
     ],
   },
