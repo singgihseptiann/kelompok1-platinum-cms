@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import loginAssets from "../assets/login.png";
-import "../styles/login.css";
+import { useDispatch } from "react-redux";
+import loginAssets from "../../assets/login.png";
+import "../../styles/login.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { registerAuth } from "../../store/Auth";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -14,23 +16,27 @@ const Login = () => {
   const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     setLoad(true);
     try {
-      const res = await axios.post("https://api-car-rental.binaracademy.org/admin/auth/login", {
-        email: form.email,
-        password: form.password,
-      });
-      console.log(res);
+      const res = await axios.post(
+        "https://api-car-rental.binaracademy.org/admin/auth/login",
+        {
+          email: form.email,
+          password: form.password,
+        }
+      );
       if (res.status === 201) {
         setSuccess("Success Login");
         setTimeout(() => {
-          navigate("..");
+          navigate("/dashboard");
         }, 1500);
+        dispatch(registerAuth(res.data));
+        localStorage.setItem("token", res.data.access_token);
       }
       setLoad(false);
-      localStorage.setItem("token", res.data.access_token);
     } catch (error) {
       setError(error.message);
       setTimeout(() => {
@@ -58,17 +64,29 @@ const Login = () => {
 
           <div className="login-input">
             <div className="email">
-              <label htmlFor="">Email</label>
+              <label htmlFor="email">Email</label>
               <br />
-              <input type="email" placeholder="Contoh: johndee@gmail.com" name="email" value={form.email} onChange={handleChange} />
+              <input
+                type="email"
+                placeholder="Example: johndee@gmail.com"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="password">
-              <label htmlFor="">Password</label>
+              <label htmlFor="password">Password</label>
               <br />
-              <input type="password" placeholder="6+ karakter" name="password" value={form.password} onChange={handleChange} />
+              <input
+                type="password"
+                placeholder="6+ characters"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+              />
             </div>
-            <button disabled={load ? true : false} onClick={handleSubmit}>
+            <button disabled={load} onClick={handleSubmit}>
               {load ? "Loading..." : "Sign In"}
             </button>
             {success && <p className="success">{success}</p>}
