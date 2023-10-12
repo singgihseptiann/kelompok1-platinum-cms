@@ -86,7 +86,7 @@ const EditCars = () => {
 
   return (
     <div>
-      <div>
+      <div style={{ background: "#CFD4ED" }}>
         <Container>
           <h1>Edit Cars</h1>
           <Form className="form-background">

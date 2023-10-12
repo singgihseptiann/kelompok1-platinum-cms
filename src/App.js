@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="" element={<BarChartComponent />} />
         <Route path="login" element={<Login />} />
-        <Route path="/edit-cars/:id" element={<EditCars />} />
+        <Route path="/edit-cars" element={<EditCars />} />
       </Routes>
     </BrowserRouter>
   );
