@@ -15,24 +15,6 @@ import { loginAdmin } from "../api/index";
 import { useEffect } from "react";
 
 const Sidebar = () => {
-  useEffect(() => {
-    const getToken = async () => {
-      try {
-        const login = await loginAdmin({
-          email: "admin@bcr.io",
-          password: "123456",
-        });
-
-        localStorage.setItem("token", login.data.access_token);
-
-        console.log(localStorage.getItem("token"));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getToken();
-  }, []);
-
   return (
     <div
       style={{
