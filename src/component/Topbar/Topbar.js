@@ -25,12 +25,7 @@ import {
   //  CDBSidebarSubmenu,
 } from "cdbreact";
 
-import SideNav, {
-  Toggle,
-  NavItem,
-  NavIcon,
-  NavText,
-} from "@trendmicro/react-sidenav";
+import SideNav, { Toggle, NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
@@ -47,18 +42,9 @@ function Topbar() {
       <Container fluid className="d-flex justify-content-end">
         <Form className="">
           <InputGroup>
-            <Form.Control
-              type="search"
-              className="float-end"
-              aria-label="Search"
-              placeholder="&#128270; Search"
-              color="#8A8A8A"
-            />
+            <Form.Control type="search" className="float-end" aria-label="Search" placeholder="&#128270; Search" color="#8A8A8A" />
 
-            <Button
-              variant="outline-info"
-              style={{ color: "#0D28A6", fontWeight: "bold" }}
-            >
+            <Button variant="outline-info" style={{ color: "#0D28A6", fontWeight: "bold" }}>
               Search
             </Button>
           </InputGroup>
