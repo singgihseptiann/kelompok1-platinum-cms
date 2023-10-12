@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import loginAssets from '../assets/login.png';
-import '../styles/login.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import loginAssets from "../assets/login.png";
+import "../styles/login.css";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setLoad(true)
+    setLoad(true);
     try {
-      const res = await axios.post('https://api-car-rental.binaracademy.org/admin/auth/login', {
+      const res = await axios.post("https://api-car-rental.binaracademy.org/admin/auth/login", {
         email: form.email,
         password: form.password,
       });
-      // console.log(res)
+      console.log(res);
       if (res.status === 201) {
-        setSuccess('Success Login');
+        setSuccess("Success Login");
         setTimeout(() => {
-          navigate('..');
+          navigate("..");
         }, 1500);
       }
-      setLoad(false)
-      localStorage.setItem('token', res.data.access_token)
+      setLoad(false);
+      localStorage.setItem("token", res.data.access_token);
     } catch (error) {
       setError(error.message);
       setTimeout(() => {
-        setError('')
+        setError("");
       }, 2500);
-      setLoad(false)
+      setLoad(false);
     }
   };
 
@@ -68,7 +68,9 @@ const Login = () => {
               <br />
               <input type="password" placeholder="6+ karakter" name="password" value={form.password} onChange={handleChange} />
             </div>
-            <button disabled={load ? true : false} onClick={handleSubmit}>{load ? 'Loading...' : 'Sign In'}</button>
+            <button disabled={load ? true : false} onClick={handleSubmit}>
+              {load ? "Loading..." : "Sign In"}
+            </button>
             {success && <p className="success">{success}</p>}
             {error && <p className="error">{error}</p>}
           </div>
