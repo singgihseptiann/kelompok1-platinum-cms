@@ -3,6 +3,7 @@ import { Table, Pagination, Container, Row, Col, Form } from "react-bootstrap";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
 import axios from "axios";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const TableOrder = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -10,6 +11,7 @@ const TableOrder = () => {
   const [limit, setLimit] = useState(10);
   const [data, setData] = useState([]); // State untuk menyimpan data dari API
 
+  const token = useSelector((state) => state.auth.token);
   // Fungsi untuk mengambil data dari API
   const fetchData = async () => {
     try {
@@ -17,7 +19,7 @@ const TableOrder = () => {
         "https://api-car-rental.binaracademy.org/admin/v2/order",
         {
           headers: {
-            access_token: `${localStorage.getItem("token")}`,
+            access_token: token,
           },
         }
       );
