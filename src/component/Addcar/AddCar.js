@@ -1,24 +1,27 @@
-import { Card, Button, Container } from "react-bootstrap";
+import { Card, Button, Container, Modal } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import React, { useState } from "react";
+import axios from "axios";
+import Sidebar from "../Sidebar/sidebar";
 
-const AddCar = (props) => {
+const AddCar = () => {
   const [form, setForm] = useState({
-    name: "",
-    category: "",
-    price: "",
+    name: '',
+    category: '',
+    price: '',
     status: false,
-    image: "",
+    image: ''
   });
   const [previewSource, setPreviewSource] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setForm({
       ...form,
-      image: file,
+      image: file
     });
     previewFile(file);
   };
@@ -33,177 +36,183 @@ const AddCar = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onSubmit(form);
+    sendToAPI(); // Call the API function here
+  };
+
+  const sendToAPI = () => {
+    // Implement the API call here
+    console.log("Sending data to API: ", form);
+    axios
+      .post("https://api-car-rental.binaracademy.org/admin/car", form, {
+        headers: {
+          access_token: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log("API response:", response);
+        setShowModal(true);
+      })
+      .catch((error) => {
+        console.error("API error:", error);
+      });
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          {" "}
-          <div>
-            <h2>Add New Car</h2>
-            <Card
-              body
-              style={{ width: "98%", height: "512px", marginBottom: "320px" }}
-              className=""
-            >
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  props.onSubmit(form);
-                }}
-              >
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar" required>
-                    Nama/Tipe Mobil<span className="text-danger">*</span>
-                  </Form.Label>
-                  <Col sm="10">
-                    <Form.Control
-                      className="textInput"
-                      style={{ width: "350px" }}
-                      type="input"
-                      placeholder="Input Nama/Tipe Mobil"
-                      value={form.name}
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          name: e.target.value,
-                        })
-                      }
-                    />
-                  </Col>
-                </Form.Group>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar">
-                    Harga<span className="text-danger">*</span>
-                  </Form.Label>
-                  <Col sm="10">
-                    <Form.Control
-                      className="textInput"
-                      style={{ width: "350px" }}
-                      type="input"
-                      placeholder="Input Harga Sewa Mobil"
-                      value={form.price}
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          price: e.target.value,
-                        })
-                      }
-                    />
-                  </Col>
-                </Form.Group>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar">
-                    Foto<span className="text-danger">*</span>
-                  </Form.Label>
-                  <Col sm="10">
-                    <input
-                      type="file"
-                      onChange={handleFileInputChange}
-                      style={{ width: "350px" }}
-                      className="form-control"
-                    />
+    <div style={{ background: "#F4F5F7" }}>
+      <Container>
+        <Row>
+          <Col>
+            {" "}
+            <Sidebar />
+      <h2>Add New Car</h2>
+      <Card
+        body
+        style={{ width: "98%", height: "512px", marginBottom: "320px" }}
+        className=""
+      >
+        <Form onSubmit={handleSubmit}>
+          <Form.Group
+            as={Row}
+            className="mb-3"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="2" className="labelAddCar" required>
+              Nama/Tipe Mobil<span className="text-danger">*</span>
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                className="textInput"
+                style={{ width: '350px' }}
+                type="input"
+                placeholder="Input Nama/Tipe Mobil"
+                value={form.name}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    name: e.target.value
+                  })
+                }
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+            <Form.Label column sm="2" className="labelAddCar">
+              Harga<span className="text-danger">*</span>
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                className="textInput"
+                style={{ width: '350px' }}
+                type="input"
+                placeholder="Input Harga Sewa Mobil"
+                value={form.price}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    price: e.target.value
+                  })
+                }
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+            <Form.Label column sm="2" className="labelAddCar">
+              Foto<span className="text-danger">*</span>
+            </Form.Label>
+            <Col sm="10">
+              <input
+                type="file"
+                onChange={handleFileInputChange}
+                style={{ width: '350px' }}
+                className="form-control"
+              />
 
-                    <label
-                      style={{
-                        fontFamily: "Rubik",
-                        fontSize: "10px",
-                        fontWeight: "300",
-                        lineHeight: "14px",
-                      }}
-                    >
-                      File Size max 2MB{" "}
-                    </label>
+              <label
+                style={{
+                  fontFamily: 'Rubik',
+                  fontSize: '10px',
+                  fontWeight: '300',
+                  lineHeight: '14px'
+                }}>
+                File Size max 2MB{' '}
+              </label>
 
-                    {previewSource && (
-                      <img
-                        className="textInput"
-                        src={previewSource}
-                        alt="Preview"
-                        style={{
-                          width: "200px",
-                          height: "200px",
-                          border: "1px solid #ccc",
-                        }}
-                      />
-                    )}
-                  </Col>
-                </Form.Group>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar">
-                    Kategori<span className="text-danger">*</span>
-                  </Form.Label>
-                  <Col sm="10">
-                    <Form.Select
-                      className="textInput"
-                      style={{ width: "350px" }}
-                      aria-label="Default select example"
-                      value={form.category}
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          category: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Pilih Kategori Mobil</option>
-                      <option value="small">small</option>
-                      <option value="medium">medium</option>
-                      <option value="large">large</option>
-                    </Form.Select>
-                  </Col>
-                </Form.Group>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar">
-                    Created at
-                  </Form.Label>
-                  <Col sm="10">-</Col>
-                </Form.Group>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextPassword"
-                >
-                  <Form.Label column sm="2" className="labelAddCar">
-                    Update at
-                  </Form.Label>
-                  <Col sm="10">-</Col>
-                </Form.Group>
-              </Form>
-            </Card>
+              {previewSource && (
+                <img
+                  className="textInput"
+                  src={previewSource}
+                  alt="Preview"
+                  style={{
+                    width: '200px',
+                    height: '200px',
+                    border: '1px solid #ccc'
+                  }}
+                />
+              )}
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+            <Form.Label column sm="2" className="labelAddCar">
+              Kategori<span className="text-danger">*</span>
+            </Form.Label>
+            <Col sm="10">
+              <Form.Select
+                className="textInput"
+                style={{ width: '350px' }}
+                aria-label="Default select example"
+                value={form.category}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    category: e.target.value
+                  })
+                }>
+                <option value="">Pilih Kategori Mobil</option>
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+              </Form.Select>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+            <Form.Label column sm="2" className="labelAddCar">
+              Created at
+            </Form.Label>
+            <Col sm="10">-</Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+            <Form.Label column sm="2" className="labelAddCar">
+              Update at
+            </Form.Label>
+            <Col sm="10">-</Col>
+          </Form.Group>
+        </Form>
+      </Card>
 
-            <div className="d-flex gap-3">
-              <Button variant="outline-primary">Cancel</Button>
-              <Button variant="primary" type="submit" onClick={handleSubmit}>
-                Save
-              </Button>
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+      <div className="d-flex gap-3">
+        <Button variant="outline-primary">Cancel</Button>
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
+          Save
+        </Button>
+      </div>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Success</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>Data berhasil disimpan!</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
