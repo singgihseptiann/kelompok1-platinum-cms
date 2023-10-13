@@ -16,7 +16,7 @@ import {
 import { BiEdit, BiTime } from "react-icons/bi";
 import moment from "moment";
 import axios from "axios";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router";
 
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
@@ -24,8 +24,9 @@ const ListCarComponent = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
   const navigate = useNavigate();
+
   const redirect = (id) => {
-    navigate(`/detail-cars/${id}`);
+    navigate(`/edit-car/${id}`);
   };
 
   const addCar = useNavigate();
