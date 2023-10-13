@@ -24,7 +24,7 @@ const routes = [
         element: <RentedCarOrder />,
       },
       {
-        path: "edit-cars/:id",
+        path: "edit-car/:id",
         element: <EditCars />,
       },
       {

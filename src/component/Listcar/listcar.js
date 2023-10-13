@@ -16,12 +16,18 @@ import {
 import { BiEdit, BiTime } from "react-icons/bi";
 import moment from "moment";
 import axios from "axios";
+import { redirect, useNavigate } from "react-router";
 
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const navigate = useNavigate();
+
+  const redirect = (id) => {
+    navigate(`/edit-car/${id}`);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -179,6 +185,7 @@ const ListCarComponent = () => {
                       <Button
                         variant="outline-success"
                         style={{ width: "142px", height: "48px" }}
+                        onClick={() => redirect(car.id)}
                       >
                         <span
                           style={{
