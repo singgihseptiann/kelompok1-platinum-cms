@@ -4,7 +4,7 @@ import Login from "../pages/Loginpage/Login";
 import DashboardHeader from "../pages/Header/Dashboard";
 import EditCars from "../component/Editcar/EditCars";
 import AddCar from "../component/Addcar/AddCar";
-import ListCarComponent from "../component/listcar";
+import ListCarComponent from "../component/Listcar/listcar";
 // import AddCar from "../component/AddCar";
 const routes = [
   {
@@ -24,7 +24,7 @@ const routes = [
         element: <RentedCarOrder />,
       },
       {
-        path: "edit-cars/:id",
+        path: "edit-car/:id",
         element: <EditCars />,
       },
       {

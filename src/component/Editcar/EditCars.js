@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Container, Button, Alert } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { FiUpload } from "react-icons/fi";
 import Toast from "react-bootstrap/Toast";
 import "../../styles/editcars.css";
 import { Link } from "react-router-dom";
@@ -18,7 +19,7 @@ const EditCars = () => {
   const navigate = useNavigate();
   const [err, setErr] = useState();
   const [isEditImage, setImageEdit] = useState(false);
-  const [sizeImage, setSizeImage] = useState("1");
+  const [sizeImage, setSizeImage] = useState("0");
   const [isChange, setIsChange] = useState(false);
   const [photo, setPhoto] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -189,7 +190,7 @@ const EditCars = () => {
                     onChange={handleChangePhoto}
                     required
                   />{" "}
-                  {/* <FiUpload size={18} /> */}
+                  <FiUpload size={18} />
                 </div>
                 <p className="p-text-img">File Size max 2MB </p>
 
