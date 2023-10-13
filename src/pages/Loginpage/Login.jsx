@@ -29,7 +29,7 @@ const Login = () => {
         }
       );
       if (res.status === 201) {
-        setSuccess("Success Login");
+        setSuccess("Berhasil Login!");
         setTimeout(() => {
           navigate("/dashboard");
         }, 1500);
@@ -38,7 +38,7 @@ const Login = () => {
       }
       setLoad(false);
     } catch (error) {
-      setError(error.message);
+      setError('Email atau password yang anda masukkan salah!');
       setTimeout(() => {
         setError("");
       }, 2500);
