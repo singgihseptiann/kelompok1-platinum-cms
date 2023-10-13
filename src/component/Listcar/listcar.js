@@ -16,13 +16,22 @@ import {
 import { BiEdit, BiTime } from "react-icons/bi";
 import moment from "moment";
 import axios from "axios";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const navigate = useNavigate();
+  const redirect = (id) => {
+    navigate(`/detail-cars/${id}`);
+  };
 
+  const addCar = useNavigate();
+  const directing = (id) => {
+    addCar(`/add-car`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -125,12 +134,19 @@ const ListCarComponent = () => {
             </Breadcrumb>
             <div className="d-flex flex-row justify-content-between">
               <h4>List Car</h4>
-              <Button variant="primary" className="rounded-0">
+              {/* <Link to="add-car"> */}{" "}
+              <Button
+                variant="primary"
+                className="rounded-0"
+                onClick={() => directing()}
+                type="submit"
+              >
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <AiOutlinePlus />
                   <span style={{ marginLeft: "8px" }}>Add a new car</span>
                 </span>
-              </Button>{" "}
+              </Button>
+              {/* </Link> */}
             </div>
             <div className="d-flex flex-row mt-2">{buttonRendered()}</div>
           </Col>
@@ -179,6 +195,7 @@ const ListCarComponent = () => {
                       <Button
                         variant="outline-success"
                         style={{ width: "142px", height: "48px" }}
+                        onClick={() => redirect(car.id)}
                       >
                         <span
                           style={{
@@ -188,7 +205,9 @@ const ListCarComponent = () => {
                           }}
                         >
                           <BiEdit />
+                          {/* <Link to="edit-cars/:id"> */}{" "}
                           <span style={{ marginLeft: "8px" }}>Edit</span>
+                          {/* </Link> */}
                         </span>
                       </Button>{" "}
                     </div>
