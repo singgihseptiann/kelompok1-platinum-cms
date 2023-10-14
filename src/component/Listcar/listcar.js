@@ -29,6 +29,10 @@ const ListCarComponent = () => {
     navigate(`/edit-car/${id}`);
   };
 
+  const addCar = useNavigate();
+  const directing = (id) => {
+    addCar(`/add-car`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -131,12 +135,19 @@ const ListCarComponent = () => {
             </Breadcrumb>
             <div className="d-flex flex-row justify-content-between">
               <h4>List Car</h4>
-              <Button variant="primary" className="rounded-0">
+              {/* <Link to="add-car"> */}{" "}
+              <Button
+                variant="primary"
+                className="rounded-0"
+                onClick={() => directing()}
+                type="submit"
+              >
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <AiOutlinePlus />
                   <span style={{ marginLeft: "8px" }}>Add a new car</span>
                 </span>
-              </Button>{" "}
+              </Button>
+              {/* </Link> */}
             </div>
             <div className="d-flex flex-row mt-2">{buttonRendered()}</div>
           </Col>
@@ -195,7 +206,9 @@ const ListCarComponent = () => {
                           }}
                         >
                           <BiEdit />
+                          {/* <Link to="edit-cars/:id"> */}{" "}
                           <span style={{ marginLeft: "8px" }}>Edit</span>
+                          {/* </Link> */}
                         </span>
                       </Button>{" "}
                     </div>
