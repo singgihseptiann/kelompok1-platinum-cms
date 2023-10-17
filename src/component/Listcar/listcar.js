@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Container, Button, Card, Modal, Breadcrumb } from "react-bootstrap";
+import { Row, Col, Container, Button, Card, Modal, Breadcrumb, Spinner } from "react-bootstrap";
 import { AiOutlinePlus, AiOutlineDelete, AiOutlineUsergroupAdd, AiOutlineRight } from "react-icons/ai";
 import { BiEdit, BiTime } from "react-icons/bi";
 import moment from "moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [loading, isLoading] = useState(false);
 
+  const navigate = useNavigate();
+
+  const redirect = (id) => {
+    navigate(`/edit-car/${id}`);
+  };
+
+  const addCar = useNavigate();
+  const directing = (id) => {
+    addCar(`/add-car`);
+  };
+
+  const addCar = useNavigate();
+  const directing = (id) => {
+    addCar(`/add-car`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,12 +123,12 @@ const ListCarComponent = () => {
             </Breadcrumb>
             <div className="d-flex flex-row justify-content-between">
               <h4>List Car</h4>
-              <Button variant="primary" className="rounded-0">
+              <Button variant="primary" className="rounded-0" onClick={() => directing()} type="submit">
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <AiOutlinePlus />
                   <span style={{ marginLeft: "8px" }}>Add a new car</span>
                 </span>
-              </Button>{" "}
+              </Button>
             </div>
             <div className="d-flex flex-row mt-2">{buttonRendered()}</div>
           </Col>
@@ -147,7 +164,8 @@ const ListCarComponent = () => {
                           <span style={{ marginLeft: "8px" }}>Delete</span>
                         </span>
                       </Button>
-                      <Button variant="outline-success" style={{ width: "142px", height: "48px" }}>
+
+                      <Button variant="outline-success" style={{ width: "142px", height: "48px" }} onClick={() => redirect(car.id)}>
                         <span
                           style={{
                             display: "flex",
@@ -156,9 +174,10 @@ const ListCarComponent = () => {
                           }}
                         >
                           <BiEdit />
-                          <span style={{ marginLeft: "8px" }}>Edit</span>
+                          {/* <Link to="edit-cars/:id"> */} <span style={{ marginLeft: "8px" }}>Edit</span>
+                          {/* </Link> */}
                         </span>
-                      </Button>{" "}
+                      </Button>
                     </div>
                   </Card.Body>
                 </Card>
