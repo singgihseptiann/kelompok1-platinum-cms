@@ -123,8 +123,10 @@ const EditCars = () => {
       <div style={{ background: "#CFD4ED" }}>
         <Container>
           <Breadcrumb>
-            <Breadcrumb.Item>Car</Breadcrumb.Item>
-            <Breadcrumb.Item>List Cars</Breadcrumb.Item>
+            <Breadcrumb.Item>Cars</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/list-car">List Car</Link>
+            </Breadcrumb.Item>
             <Breadcrumb.Item active>Edit Car</Breadcrumb.Item>
           </Breadcrumb>
         </Container>
@@ -141,13 +143,7 @@ const EditCars = () => {
               </Alert>
             )}
           </div>
-          <div>
-            {showAlert ? (
-              <Alert variant="danger">
-                Ukuran gambar lebih dari 2MB, silahkan pilih gambar lain
-              </Alert>
-            ) : null}
-          </div>
+          <div>{showAlert ? <Alert variant="danger">Ukuran gambar lebih dari 2MB, silahkan pilih gambar lain</Alert> : null}</div>
           <h1>Edit Cars</h1>
           <Form className="form-background">
             <Form.Group as={Row} className="mb-3">
@@ -169,13 +165,7 @@ const EditCars = () => {
                 <span className="text-color-edit">Harga</span>
               </Form.Label>
               <Col sm="4">
-                <input
-                  className="editcar-inputsection-form-input-bg"
-                  onChange={handleChangePrice}
-                  type="number"
-                  value={data.price}
-                  placeholder="Rp"
-                />
+                <input className="editcar-inputsection-form-input-bg" onChange={handleChangePrice} type="number" value={data.price} placeholder="Rp" />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
@@ -184,13 +174,7 @@ const EditCars = () => {
               </Form.Label>
               <Col sm="4">
                 <div className="editcar-inputsection-form-input-bg">
-                  <input
-                    placeholder="Upload Foto Mobil"
-                    type="file"
-                    onChange={handleChangePhoto}
-                    required
-                  />{" "}
-                  <FiUpload size={18} />
+                  <input placeholder="Upload Foto Mobil" type="file" onChange={handleChangePhoto} required /> <FiUpload size={18} />
                 </div>
                 <p className="p-text-img">File Size max 2MB </p>
 
@@ -205,9 +189,7 @@ const EditCars = () => {
                     }}
                   />
                 ) : (
-                  <p className="-text-img">
-                    Silahkan pilih ulang Foto untuk disimpan
-                  </p>
+                  <p className="-text-img">Silahkan pilih ulang Foto untuk disimpan</p>
                   // <img
                   //   src={data.image}
                   //   alt="Load Image"
@@ -267,11 +249,7 @@ const EditCars = () => {
             <Link to="/list-car">
               <Button className="button-cancel">Cancel</Button>
             </Link>
-            <Button
-              className="button-save"
-              onClick={handleSave}
-              disabled={!isChange}
-            >
+            <Button className="button-save" onClick={handleSave} disabled={!isChange}>
               Save
             </Button>
           </div>
