@@ -8,7 +8,6 @@ import { InputGroup } from "react-bootstrap";
 import { logOut } from "../../store/Auth";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -57,11 +56,7 @@ function Topbar() {
         </div>
 
         <Nav className="">
-          <NavDropdown
-            id="nav-dropdown-dark-example"
-            title={email}
-            menuVariant="dark"
-          >
+          <NavDropdown id="nav-dropdown-dark-example" title={email} menuVariant="dark">
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={handleLogOut}>Logout</NavDropdown.Item>
           </NavDropdown>
