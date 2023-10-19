@@ -9,7 +9,7 @@ import { logOut } from "../../store/Auth";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import Sidebar from "../Sidebar/sidebar";
-
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -63,11 +63,7 @@ function Topbar() {
         </div>
 
         <Nav className="">
-          <NavDropdown
-            id="nav-dropdown-dark-example"
-            title={email}
-            menuVariant="dark"
-          >
+          <NavDropdown id="nav-dropdown-dark-example" title={email} menuVariant="dark">
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={handleLogOut}>Logout</NavDropdown.Item>
           </NavDropdown>
