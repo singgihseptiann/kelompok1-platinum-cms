@@ -1,27 +1,28 @@
-import { Navigate } from 'react-router';
-import RentedCarOrder from '../pages/dashboardpages/DasboardRentedOrder';
-import Login from '../pages/Loginpage/Login';
-import DashboardHeader from '../pages/Header/Dashboard';
-import EditCars from '../component/Editcar/EditCars';
-import AddCar from '../component/Addcar/AddCar';
-import ListCarComponent from '../component/Listcar/listcar';
-import ProtectedRoute from '../component/ProtectedRoute/ProtectedRoute';
+import { Navigate } from "react-router";
+import RentedCarOrder from "../pages/dashboardpages/DasboardRentedOrder";
+import Login from "../pages/Loginpage/Login";
+import DashboardHeader from "../pages/Header/Dashboard";
+import EditCars from "../component/Editcar/EditCars";
+import AddCar from "../component/Addcar/AddCar";
+import ListCarComponent from "../component/Listcar/listcar";
+import ResultSearch from "../component/ResultSearch";
+import ProtectedRoute from "../component/ProtectedRoute/ProtectedRoute";
 // import AddCar from "../component/AddCar";
 const routes = [
   {
-    path: '',
+    path: "",
     element: <Navigate to="/login" />,
   },
   {
-    path: '/login',
+    path: "/login",
     element: <Login />,
   },
   {
-    path: '',
+    path: "",
     element: <DashboardHeader />,
     children: [
       {
-        path: 'dashboard',
+        path: "dashboard",
         element: (
           <ProtectedRoute>
             <RentedCarOrder />
@@ -29,7 +30,7 @@ const routes = [
         ),
       },
       {
-        path: 'edit-car/:id',
+        path: "edit-car/:id",
         element: (
           <ProtectedRoute>
             <EditCars />
@@ -37,7 +38,7 @@ const routes = [
         ),
       },
       {
-        path: 'add-car',
+        path: "add-car",
         element: (
           <ProtectedRoute>
             <AddCar />
@@ -45,10 +46,18 @@ const routes = [
         ),
       },
       {
-        path: 'list-car',
+        path: "list-car",
         element: (
           <ProtectedRoute>
             <ListCarComponent />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "result-search",
+        element: (
+          <ProtectedRoute>
+            <ResultSearch />
           </ProtectedRoute>
         ),
       },

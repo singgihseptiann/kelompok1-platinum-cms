@@ -118,7 +118,7 @@ const ListCarComponent = () => {
   };
 
   return (
-    <Container style={{ backgroundColor: " #F4F5F7" }}>
+    <Container style={{ backgroundColor: "#F4F5F7" }}>
       <Row>
         <Col>
           <Breadcrumb>

@@ -2,9 +2,9 @@ import { Fragment, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import { API } from "../API";
+import { API } from "./API";
 import { Link } from "react-router-dom";
-import { routes } from "../../Routes";
+import Topbar from "./Topbar/Topbar";
 
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -13,17 +13,19 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { InputGroup } from "react-bootstrap";
-import { logOut } from "../../store/Auth";
+//import { logOut } from "../../store/Auth";
+import { logOut } from "../store/Auth";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import Sidebar from "../Sidebar/sidebar";
-import ResultSearch from "../ResultSearch";
+//import Sidebar from "../Sidebar/sidebar";
+import Sidebar from "./Sidebar/sidebar";
 
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { Breadcrumb } from "react-bootstrap";
+
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -43,8 +45,7 @@ import SideNav, {
 
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
-const Topbar = (props) => {
-  const { onButtonClick } = props;
+const ResultSearch = () => {
   const [nameCar, setNameCar] = useState("");
   const [category, setCategory] = useState("");
   const [isRented, setIsRented] = useState(false);
@@ -110,55 +111,16 @@ const Topbar = (props) => {
     fetchData();
   };
 
+  const handleSubmit1 = () => {
+    document.body.style.backgroundColor = "green";
+  };
+
   const email = useSelector((state) => state.auth.email);
-  return (
-    <Navbar expand="lg" className="bg-white">
-      <Container fluid className="d-flex justify-content-end">
-        <Form className="">
-          <InputGroup>
-            <Form.Control
-              id="nama"
-              type="text"
-              className="float-end"
-              aria-label="Search"
-              placeholder="&#128270; Ketik nama mobil"
-              color="#8A8A8A"
-              onChange={(e) => setNameCar(e.target.value)}
-            />
 
-            <Button
-              onClick={handleSubmit}
-              variant="outline-info"
-              style={{ color: "#0D28A6", fontWeight: "bold" }}
-            >
-              Search
-            </Button>
-          </InputGroup>
-        </Form>
-
-        <div
-          style={{
-            backgroundColor: "#CFD4ED",
-            width: "38px",
-            height: "38px",
-            borderRadius: "50%",
-          }}
-          className="d-flex justify-content-center align-items-center ms-2"
-        >
-          H
-        </div>
-
-        <Nav className="">
-          <NavDropdown
-            id="nav-dropdown-dark-example"
-            title={email}
-            menuVariant="dark"
-          >
-            <NavDropdown.Divider />
-            <NavDropdown.Item onClick={handleLogOut}>Logout</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-
+  const ResultSearch = () => {
+    return (
+      <>
+        <Topbar onButtonClick={() => navigate("/list-car")} />
         <section className="display-car-section">
           {isLoading ? (
             <h1>Loading...</h1>
@@ -198,9 +160,9 @@ const Topbar = (props) => {
             </Row>
           )}
         </section>
-      </Container>
-    </Navbar>
-  );
+      </>
+    );
+  };
 };
 
-export default Topbar;
+export default ResultSearch;
