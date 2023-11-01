@@ -129,7 +129,7 @@ const Topbar = (props) => {
             <Button
               onClick={handleSubmit}
               variant="outline-info"
-              style={{ color: "#0D28A6", fontWeight: "bold" }}
+              style={{ color: "#0D28A6"}}
             >
               Search
             </Button>
