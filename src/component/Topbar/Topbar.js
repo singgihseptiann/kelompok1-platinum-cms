@@ -161,7 +161,7 @@ const Topbar = (props) => {
 
         <section className="display-car-section">
           {isLoading ? (
-            <h1>Loading...</h1>
+            <h1>Loading....</h1>
           ) : (
             <Row>
               {data.map((car) => {

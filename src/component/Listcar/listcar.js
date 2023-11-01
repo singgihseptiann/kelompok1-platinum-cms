@@ -1,51 +1,45 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Container,
-  Button,
-  Card,
-  Modal,
-  Breadcrumb,
-} from "react-bootstrap";
-import {
-  AiOutlinePlus,
-  AiOutlineDelete,
-  AiOutlineUsergroupAdd,
-} from "react-icons/ai";
+import { Row, Col, Container, Button, Card, Modal, Breadcrumb, Spinner } from "react-bootstrap";
+import { AiOutlinePlus, AiOutlineDelete, AiOutlineUsergroupAdd, AiOutlineRight } from "react-icons/ai";
 import { BiEdit, BiTime } from "react-icons/bi";
 import moment from "moment";
 import axios from "axios";
-import { redirect, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   const redirect = (id) => {
     navigate(`/edit-car/${id}`);
   };
 
-  const addCar = useNavigate();
-  const directing = (id) => {
-    addCar(`/add-car`);
+  const directing = () => {
+    navigate(`/add-car`);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://api-car-rental.binaracademy.org/admin/v2/car",
-          {
-            headers: {
-              access_token: localStorage.getItem("token"),
-            },
-          }
-        );
+        setLoading(true);
+
+        const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/car", {
+          headers: {
+            access_token: localStorage.getItem("token"),
+          },
+        });
         setCars(response.data.cars);
+
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
+
         console.error("Error fetching data from API:", error);
       }
     };
@@ -68,12 +62,8 @@ const ListCarComponent = () => {
     return categories.map((category) => (
       <Button
         key={category.value}
-        variant={
-          selectedCategory === category.value ? "primary" : "outline-primary"
-        }
-        className={`rounded-0 me-2 ${
-          selectedCategory === category.value ? "active" : ""
-        }`}
+        variant={selectedCategory === category.value ? "primary" : "outline-primary"}
+        className={`rounded-0 me-2 ${selectedCategory === category.value ? "active" : ""}`}
         onClick={() => handleFilter(category.value)}
       >
         {category.label}
@@ -105,18 +95,13 @@ const ListCarComponent = () => {
 
   const deleteCar = async () => {
     try {
-      await axios.delete(
-        `https://api-car-rental.binaracademy.org/admin/car/${selectedCar.id}`,
-        {
-          headers: {
-            access_token: localStorage.getItem("token"),
-          },
-        }
-      );
+      await axios.delete(`https://api-car-rental.binaracademy.org/admin/car/${selectedCar.id}`, {
+        headers: {
+          access_token: localStorage.getItem("token"),
+        },
+      });
 
-      setCars((prevCars) =>
-        prevCars.filter((car) => car.id !== selectedCar.id)
-      );
+      setCars((prevCars) => prevCars.filter((car) => car.id !== selectedCar.id));
     } catch (error) {
       console.error("Error deleting car:", error);
     }
@@ -125,128 +110,101 @@ const ListCarComponent = () => {
   return (
     <div style={{ backgroundColor: " #F4F5F7" }}>
       <Container>
-        <Row>
-          <Col>
-            <Breadcrumb>
-              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-                Library
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="d-flex flex-row justify-content-between">
-              <h4>List Car</h4>
-              {/* <Link to="add-car"> */}{" "}
-              <Button
-                variant="primary"
-                className="rounded-0"
-                onClick={() => directing()}
-                type="submit"
-              >
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <AiOutlinePlus />
-                  <span style={{ marginLeft: "8px" }}>Add a new car</span>
-                </span>
-              </Button>
-              {/* </Link> */}
-            </div>
-            <div className="d-flex flex-row mt-2">{buttonRendered()}</div>
-          </Col>
-        </Row>
-        <Row className="mt-5">
-          {filteredCars.map((car) => (
-            <Col xs={12} md={6} lg={3} key={car.id}>
-              <div className="d-lg-flex align-content-center justify-content-between">
-                <Card className="mb-3 rounded">
-                  <Card.Img
-                    variant="top"
-                    src={car.image}
-                    style={{ height: "170px", width: "auto" }}
-                  />
-                  <Card.Body>
-                    Nama/Tipe Mobil
-                    <Card.Title>{car.name}</Card.Title>
-                    <Card.Text>
-                      Rp. {car.price} / Hari
-                      <br />
-                      <AiOutlineUsergroupAdd />
-                      Kategori: {car.category}
-                      <br />
-                      <BiTime />
-                      Update on:{" "}
-                      {moment(car.updatedAt).format("MMM, DD YYYY HH:HH")}
-                    </Card.Text>
-                    <div className="d-flex flex-row ">
-                      <Button
-                        variant="outline-danger"
-                        className="me-2"
-                        style={{ width: "142px", height: "48px" }}
-                        onClick={() => handleDeleteCar(car)}
-                      >
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <AiOutlineDelete />
-                          <span style={{ marginLeft: "8px" }}>Delete</span>
-                        </span>
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        style={{ width: "142px", height: "48px" }}
-                        onClick={() => redirect(car.id)}
-                      >
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <BiEdit />
-                          {/* <Link to="edit-cars/:id"> */}{" "}
-                          <span style={{ marginLeft: "8px" }}>Edit</span>
-                          {/* </Link> */}
-                        </span>
-                      </Button>{" "}
-                    </div>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Col>
-          ))}
-        </Row>
-        <Modal
-          show={showDeleteConfirmation}
-          onHide={handleCloseDeleteConfirmation}
-        >
+        {loading ? (
+          <div className="d-flex align-items-center justify-content-center">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        ) : (
+          <>
+            <Row>
+              <Col>
+                <Breadcrumb className="mt-5">
+                  <div className="fw-bold">Cars</div>
+                  <span className="breadcrumb-separator">
+                    {" "}
+                    <AiOutlineRight />
+                  </span>
+                  <Breadcrumb.Item>
+                    <Link to="/list-car">List Car</Link>
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                <div className="d-flex flex-row justify-content-between">
+                  <h4>List Car</h4>
+                  <Button variant="primary" className="rounded-0" onClick={() => directing()} type="submit">
+                    <span style={{ display: "flex", alignItems: "center" }}>
+                      <AiOutlinePlus />
+                      <span style={{ marginLeft: "8px" }}>Add a new car</span>
+                    </span>
+                  </Button>
+                </div>
+                <div className="d-flex flex-row mt-2">{buttonRendered()}</div>
+              </Col>
+            </Row>
+            <Row className="mt-5">
+              {filteredCars.map((car) => (
+                <Col xs={12} md={6} lg={3} key={car.id}>
+                  <div className="d-lg-flex align-content-center justify-content-between">
+                    <Card className="mb-3 rounded">
+                      <Card.Img variant="top" src={car.image} style={{ height: "170px", width: "auto" }} />
+                      <Card.Body>
+                        Nama/Tipe Mobil
+                        <Card.Title>{car.name}</Card.Title>
+                        <Card.Text>
+                          Rp. {car.price} / Hari
+                          <br />
+                          <AiOutlineUsergroupAdd />
+                          Kategori: {car.category}
+                          <br />
+                          <BiTime />
+                          Update on: {moment(car.updatedAt).format("MMM, DD YYYY HH:HH")}
+                        </Card.Text>
+                        <div className="d-flex flex-row ">
+                          <Button variant="outline-danger" className="me-2" style={{ width: "142px", height: "48px" }} onClick={() => handleDeleteCar(car)}>
+                            <span
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <AiOutlineDelete />
+                              <span style={{ marginLeft: "8px" }}>Delete</span>
+                            </span>
+                          </Button>
+
+                          <Button variant="outline-success" style={{ width: "142px", height: "48px" }} onClick={() => redirect(car.id)}>
+                            <span
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <BiEdit />
+                              {/* <Link to="edit-cars/:id"> */} <span style={{ marginLeft: "8px" }}>Edit</span>
+                              {/* </Link> */}
+                            </span>
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          </>
+        )}
+
+        <Modal show={showDeleteConfirmation} onHide={handleCloseDeleteConfirmation}>
           <Modal.Body className="text-center">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/modaldelete.png`}
-              alt="Gambar"
-              style={{ width: "153px", height: "121px" }}
-            />
+            <img src={`${process.env.PUBLIC_URL}/images/modaldelete.png`} alt="Gambar" style={{ width: "153px", height: "121px" }} />
             <h5 className="mt-3">Menghapus Data Mobil</h5>
-            <p>
-              Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin ingin
-              menghapus?
-            </p>
+            <p>Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin ingin menghapus?</p>
             <div className="d-flex justify-content-center ">
-              <Button
-                variant="outline-primary"
-                className="me-2"
-                style={{ width: "87px", height: "36px" }}
-                onClick={handleConfirmDelete}
-              >
+              <Button variant="outline-primary" className="me-2" style={{ width: "87px", height: "36px" }} onClick={handleConfirmDelete}>
                 Ya
               </Button>
-              <Button
-                variant="outline-primary"
-                style={{ width: "87px", height: "36px" }}
-                onClick={handleCloseDeleteConfirmation}
-              >
+              <Button variant="outline-primary" style={{ width: "87px", height: "36px" }} onClick={handleCloseDeleteConfirmation}>
                 Tidak
               </Button>
             </div>

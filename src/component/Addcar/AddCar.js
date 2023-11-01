@@ -4,6 +4,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import { Link, useNavigate,  } from 'react-router-dom';
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { useDispatch, useSelector } from 'react-redux';
 
 const AddCar = () => {
   const [form, setForm] = useState({
@@ -15,14 +18,21 @@ const AddCar = () => {
   });
   const [previewSource, setPreviewSource] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+  const token = useSelector(state => state.auth.token);
 
   const handleChangePhoto = (e) => {
     const file = e.target.files[0];
-    setForm({
-      ...form,
-      image: file
-    });
-    previewFile(file);
+    if (file && file.size > 2 * 1024 * 1024) {
+      // File size is larger than 2MB
+      alert("File size should not exceed 2MB!");
+    } else {
+      setForm({
+        ...form,
+        image: file
+      });
+      previewFile(file);
+    }
   };
 
   const previewFile = (file) => {
@@ -38,30 +48,43 @@ const AddCar = () => {
     sendToAPI();
   };
 
-  const sendToAPI = async () => {
+  const sendToAPI = () => {
     const formData = new FormData();
     formData.append('name', form.name);
     formData.append('category', form.category);
     formData.append('price', form.price);
     formData.append('status', form.status);
     formData.append('image', form.image);
-
-    try {
-      const response = await axios.post("https://api-car-rental.binaracademy.org/admin/car", formData, {
+  
+    console.log("Sending data to API: ", form);
+    axios
+      .post("https://api-car-rental.binaracademy.org/admin/car", formData, {
         headers: {
+          access_token: token,
           'Content-Type': 'multipart/form-data',
-          'access_token': localStorage.getItem("token"),
         },
+      })
+      .then((response) => {
+        console.log("API response:", response);
+        setShowModal(true);
+      })
+      .catch((error) => {
+        console.error("API error:", error);
       });
-      console.log("API response:", response);
-      setShowModal(true);
-    } catch (error) {
-      console.error("API error:", error);
-    }
   };
-
+  
   return (
     <div style={{ background: "#F4F5F7" }}>
+      <Container>
+          <Breadcrumb>
+            <Breadcrumb.Item>Cars</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/list-car">List Car</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>Add Car</Breadcrumb.Item>
+          </Breadcrumb>
+        </Container>
+        <Container></Container>
       <Container>
         <Row>
           <Col>
@@ -127,20 +150,21 @@ const AddCar = () => {
                       <Col sm="8">
                       <input
                           type="file"
-                          accept=".svg" // Hanya menerima file SVG
                           onChange={handleChangePhoto}
-                          style={{ width: '350px' }}
-                          className="form-control"
+                          style={{ width: '100%' }}
+                          className="form-control" 
                         />
+                        
                         <label
                           style={{
                             fontFamily: 'Rubik',
-                            fontSize: '10px',
+                            fontSize: '11px',
                             fontWeight: '300',
                             lineHeight: '14px'
                           }}>
                           File Size max 2MB{' '}
                         </label>
+                        
                       </Col>
                     </Form.Group>
 
@@ -162,9 +186,9 @@ const AddCar = () => {
                             })
                           }>
                           <option value="">Pilih Kategori Mobil</option>
-                          <option value="small">small</option>
-                          <option value="medium">medium</option>
-                          <option value="large">large</option>
+                          <option value="small">Small</option>
+                          <option value="medium">Medium</option>
+                          <option value="large">Large</option>
                         </Form.Select>
                       </Col>
                     </Form.Group>
@@ -230,7 +254,13 @@ const AddCar = () => {
             </Card>
 
             {/* Modal untuk menampilkan pesan sukses */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal 
+            show={showModal} 
+            onHide={() => {
+              setShowModal(false);
+              navigate("/list-car");
+            }}
+            >
               <Modal.Header closeButton>
                 <Modal.Title>Success</Modal.Title>
               </Modal.Header>
@@ -238,7 +268,13 @@ const AddCar = () => {
                 <p>Data berhasil disimpan!</p>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                <Button 
+                variant="secondary" 
+                onClick={() => {
+                setShowModal(false)
+                navigate("/list-car");
+                }}
+                >
                   Close
                 </Button>
               </Modal.Footer>
