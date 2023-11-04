@@ -120,7 +120,7 @@ const EditCars = () => {
 
   return (
     <div>
-      <div style={{ background: "#CFD4ED" }}>
+      <div style={{ background: "#F4F5F7" }}>
         <Container>
           <Breadcrumb>
             <Breadcrumb.Item>Cars</Breadcrumb.Item>

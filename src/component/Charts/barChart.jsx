@@ -169,7 +169,6 @@ const BarChartComponent = () => {
                 <Link to="/dashboard">Dashboard</Link>
               </Breadcrumb.Item>
             </Breadcrumb>
-
             <div className="ms-5 mt-5">
               <div className="d-flex">
                 <div

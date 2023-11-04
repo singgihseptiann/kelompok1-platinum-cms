@@ -5,8 +5,8 @@ import DashboardHeader from "../pages/Header/Dashboard";
 import EditCars from "../component/Editcar/EditCars";
 import AddCar from "../component/Addcar/AddCar";
 import ListCarComponent from "../component/Listcar/listcar";
-import ResultSearch from "../component/ResultSearch";
 import ProtectedRoute from "../component/ProtectedRoute/ProtectedRoute";
+import ResultCar from "../component/Searchcar/ResultCar";
 // import AddCar from "../component/AddCar";
 const routes = [
   {
@@ -54,12 +54,9 @@ const routes = [
         ),
       },
       {
-        path: "result-search",
-        element: (
-          <ProtectedRoute>
-            <ResultSearch />
-          </ProtectedRoute>
-        ),
+        // Add a new route for displaying search results
+        path: "/search/:query",
+        element: <ResultCar />,
       },
     ],
   },
