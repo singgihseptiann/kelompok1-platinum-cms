@@ -16,14 +16,6 @@ const ListCarComponent = () => {
 
   const navigate = useNavigate();
 
-  const redirect = (id) => {
-    navigate(`/edit-car/${id}`);
-  };
-
-  const directing = () => {
-    navigate(`/add-car`);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -107,11 +99,15 @@ const ListCarComponent = () => {
     }
   };
 
+  const redirect = (id) => {
+    navigate(`/edit-car/${id}`);
+  };
+
   return (
-    <div style={{ backgroundColor: " #F4F5F7" }}>
+    <div style={{ backgroundColor: "#F4F5F7" }}>
       <Container>
         {loading ? (
-          <div className="d-flex align-items-center justify-content-center">
+          <div data-testid="loader" className="d-flex align-items-center justify-content-center">
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
@@ -130,7 +126,7 @@ const ListCarComponent = () => {
                 </Breadcrumb>
                 <div className="d-flex flex-row justify-content-between">
                   <h4>List Car</h4>
-                  <Button variant="primary" className="rounded-0" onClick={() => directing()} type="submit">
+                  <Button variant="primary" className="rounded-0" onClick={() => navigate("/add-car")} type="submit">
                     <span style={{ display: "flex", alignItems: "center" }}>
                       <AiOutlinePlus />
                       <span style={{ marginLeft: "8px" }}>Add a new car</span>
@@ -181,8 +177,7 @@ const ListCarComponent = () => {
                               }}
                             >
                               <BiEdit />
-                              {/* <Link to="edit-cars/:id"> */} <span style={{ marginLeft: "8px" }}>Edit</span>
-                              {/* </Link> */}
+                              <span style={{ marginLeft: "8px" }}>Edit</span>
                             </span>
                           </Button>
                         </div>
