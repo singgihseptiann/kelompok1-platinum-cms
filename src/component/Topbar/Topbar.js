@@ -14,7 +14,6 @@ import { logOut } from "../../store/Auth";
 
 const Topbar = () => {
   const [carName, setCarName] = useState("");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ const Topbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     navigate(`/search/${carName}`);
   };
 
