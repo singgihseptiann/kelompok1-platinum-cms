@@ -14,7 +14,7 @@ import { logOut } from "../../store/Auth";
 
 const Topbar = () => {
   const [carName, setCarName] = useState("");
-  // const [isSubmitted, setIsSubmitted] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Topbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setIsSubmitted(true);
+
     navigate(`/search/${carName}`);
   };
 

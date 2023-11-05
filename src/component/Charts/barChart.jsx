@@ -93,8 +93,6 @@ const BarChartComponent = () => {
       });
 
       setChartData(chartDataMapped);
-
-      console.log(`Chart data for ${selectedMonth}:`, chartDataMapped);
     }
   }, [apiData, selectedMonth]);
 
@@ -122,8 +120,8 @@ const BarChartComponent = () => {
           display: true,
           text: "Amount of Car Rented",
           font: {
-            size: 16, // Font size
-            weight: "bold", // Font weight
+            size: 16,
+            weight: "bold",
           },
         },
         suggestedMin: 0,

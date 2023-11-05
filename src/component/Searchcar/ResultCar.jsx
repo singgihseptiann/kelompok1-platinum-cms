@@ -20,6 +20,14 @@ const ResultCar = ({ formatToIDR }) => {
   const redirect = (id) => {
     navigate(`/edit-car/${id}`);
   };
+  const formatRupiah = (angka) => {
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+    return formatter.format(angka);
+  };
   useEffect(() => {
     fetchData(query);
   }, [query]);
@@ -79,8 +87,9 @@ const ResultCar = ({ formatToIDR }) => {
       console.error("Error deleting car:", error);
     }
   };
+
   return (
-    <div style={{ backgroundColor: " #F4F5F7" }}>
+    <div style={{ backgroundColor: " #F4F5F7", height: "100vh" }}>
       <Container>
         {isLoading ? (
           <h1>Loading....</h1>
@@ -94,7 +103,7 @@ const ResultCar = ({ formatToIDR }) => {
                     <Card.Body>
                       <Card.Title>Nama/Tipe Mobil</Card.Title>
                       <Card.Title>{car.name}</Card.Title>
-                      <Card.Text>{car.price} / hari</Card.Text>
+                      <Card.Text>{formatRupiah(car.price)}/ hari</Card.Text>
                       <Card.Text>
                         {" "}
                         <AiOutlineUsergroupAdd />

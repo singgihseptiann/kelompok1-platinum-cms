@@ -9,10 +9,10 @@ const TableOrder = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [data, setData] = useState([]); // State untuk menyimpan data dari API
+  const [data, setData] = useState([]);
 
   const token = useSelector((state) => state.auth.token);
-  // Fungsi untuk mengambil data dari API
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -24,7 +24,6 @@ const TableOrder = () => {
         }
       );
 
-      // Mengambil array dari response API (response.data.orders)
       const apiData = response.data.orders;
       setData(apiData);
     } catch (error) {
@@ -32,7 +31,6 @@ const TableOrder = () => {
     }
   };
 
-  // Mengambil data dari API saat komponen dimuat
   useEffect(() => {
     fetchData();
   }, []);
@@ -40,7 +38,6 @@ const TableOrder = () => {
   const handleSortClick = () => {
     const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newSortOrder);
-    // Lakukan pengurutan data Anda sesuai dengan `newSortOrder` di sini
   };
   function formatRupiah(angka) {
     const formatter = new Intl.NumberFormat("id-ID", {
@@ -51,7 +48,6 @@ const TableOrder = () => {
     return formatter.format(angka);
   }
 
-  // Logika untuk menentukan data yang akan ditampilkan berdasarkan halaman saat ini
   const itemsPerPage = limit;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
