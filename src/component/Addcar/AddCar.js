@@ -45,6 +45,10 @@ const AddCar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!form.category) {
+      alert("Kategori harus dipilih!");
+      return;
+    }
     sendToAPI();
   };
 
