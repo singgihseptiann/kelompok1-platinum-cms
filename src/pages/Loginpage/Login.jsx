@@ -21,6 +21,11 @@ const Login = () => {
   const handleSubmit = async () => {
     setLoad(true);
     try {
+      if (form.email.toLowerCase() !== "admin@bcr.io") {
+        setError("Anda tidak memiliki izin untuk masuk.");
+        setLoad(false);
+        return;
+      }
       const res = await axios.post(
         "https://api-car-rental.binaracademy.org/admin/auth/login",
         {
@@ -38,7 +43,7 @@ const Login = () => {
       }
       setLoad(false);
     } catch (error) {
-      setError('Email atau password yang anda masukkan salah!');
+      setError("Email atau password yang anda masukkan salah!");
       setTimeout(() => {
         setError("");
       }, 2500);
