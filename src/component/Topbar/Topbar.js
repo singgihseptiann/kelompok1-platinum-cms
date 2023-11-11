@@ -27,7 +27,7 @@ const Topbar = () => {
     navigate(`/search/${carName}`);
   };
 
-  const email = useSelector((state) => state.auth.email);
+  const role = useSelector((state) => state.auth.role);
 
   return (
     <Navbar expand="lg" className="bg-white">
@@ -68,7 +68,7 @@ const Topbar = () => {
         <Nav className="">
           <NavDropdown
             id="nav-dropdown-dark-example"
-            title={email}
+            title={role}
             menuVariant="dark"
           >
             <NavDropdown.Divider />

@@ -21,11 +21,6 @@ const Login = () => {
   const handleSubmit = async () => {
     setLoad(true);
     try {
-      if (form.email.toLowerCase() !== "admin@bcr.io") {
-        setError("Anda tidak memiliki izin untuk masuk.");
-        setLoad(false);
-        return;
-      }
       const res = await axios.post(
         "https://api-car-rental.binaracademy.org/admin/auth/login",
         {
@@ -33,17 +28,31 @@ const Login = () => {
           password: form.password,
         }
       );
+
       if (res.status === 201) {
+        const { access_token, role } = res.data;
+
+        if (role !== "Admin") {
+          setLoad(false);
+          setError("Anda tidak memiliki izin untuk masuk."); // Pesan kesalahan khusus untuk peran yang tidak sesuai
+          setTimeout(() => {
+            setError("");
+          }, 2500);
+          return;
+        }
+
         setSuccess("Berhasil Login!");
         setTimeout(() => {
           navigate("/dashboard");
         }, 1500);
-        dispatch(registerAuth(res.data));
-        localStorage.setItem("token", res.data.access_token);
+        dispatch(registerAuth({ access_token, role }));
+        localStorage.setItem("token", access_token);
       }
       setLoad(false);
     } catch (error) {
-      setError("Email atau password yang anda masukkan salah!");
+      setError(
+        "Email atau password yang anda masukkan salah atau Anda tidak memiliki izin untuk masuk."
+      );
       setTimeout(() => {
         setError("");
       }, 2500);
