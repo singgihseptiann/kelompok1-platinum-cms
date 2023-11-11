@@ -21,13 +21,10 @@ const Login = () => {
   const handleSubmit = async () => {
     setLoad(true);
     try {
-      const res = await axios.post(
-        "https://api-car-rental.binaracademy.org/admin/auth/login",
-        {
-          email: form.email,
-          password: form.password,
-        }
-      );
+      const res = await axios.post("https://api-car-rental.binaracademy.org/admin/auth/login", {
+        email: form.email,
+        password: form.password,
+      });
 
       if (res.status === 201) {
         const { access_token, role } = res.data;
@@ -48,11 +45,8 @@ const Login = () => {
         dispatch(registerAuth({ access_token, role }));
         localStorage.setItem("token", access_token);
       }
-      setLoad(false);
     } catch (error) {
-      setError(
-        "Email atau password yang anda masukkan salah atau Anda tidak memiliki izin untuk masuk."
-      );
+      setError("Email atau password yang anda masukkan salah atau Anda tidak memiliki izin untuk masuk.");
       setTimeout(() => {
         setError("");
       }, 2500);
@@ -80,25 +74,13 @@ const Login = () => {
             <div className="email">
               <label htmlFor="email">Email</label>
               <br />
-              <input
-                type="email"
-                placeholder="Example: johndee@gmail.com"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
+              <input type="email" placeholder="Example: johndee@gmail.com" name="email" value={form.email} onChange={handleChange} />
             </div>
 
             <div className="password">
               <label htmlFor="password">Password</label>
               <br />
-              <input
-                type="password"
-                placeholder="6+ characters"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-              />
+              <input type="password" placeholder="6+ characters" name="password" value={form.password} onChange={handleChange} />
             </div>
             <button disabled={load} onClick={handleSubmit}>
               {load ? "Loading..." : "Sign In"}
