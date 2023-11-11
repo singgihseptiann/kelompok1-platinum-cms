@@ -39,7 +39,7 @@ const EditCars = () => {
     axios
       .get(api, config)
       .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const EditCars = () => {
 
       const timer = setTimeout(() => {
         setShowAlert(false);
-      }, 4000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   };
@@ -103,12 +103,11 @@ const EditCars = () => {
     axios
       .put(api, formData, config)
       .then((res) => {
-        console.log(res);
         setShowToast(true);
         setTimeout(() => {
           setShowToast(false);
           navigate("/list-car");
-        }, 3000);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -132,11 +131,6 @@ const EditCars = () => {
         </Container>
         <Container>
           <div>
-            {/* {showToast && (
-              <Toast style={{ background: "green" }} autohide>
-                <Toast.Body>Berhasil Edit Data</Toast.Body>
-              </Toast>
-            )} */}
             {showToast && (
               <Alert variant="success" className="alert-seccess">
                 Berhasil Edit Data
@@ -151,13 +145,7 @@ const EditCars = () => {
                 <span className="text-color-edit">Nama</span>
               </Form.Label>
               <Col sm="4">
-                <input
-                  required
-                  className="editcar-inputsection-form-input-bg"
-                  onChange={handleChangeName}
-                  value={data.name}
-                  // placeholder={data.name}
-                />
+                <input required className="editcar-inputsection-form-input-bg" onChange={handleChangeName} value={data.name} />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
@@ -190,15 +178,6 @@ const EditCars = () => {
                   />
                 ) : (
                   <p className="-text-img">Silahkan pilih ulang Foto untuk disimpan</p>
-                  // <img
-                  //   src={data.image}
-                  //   alt="Load Image"
-                  //   style={{
-                  //     width: "200px",
-                  //     height: "200px",
-                  //     border: "1px solid #ccc",
-                  //   }}
-                  // />
                 )}
               </Col>
             </Form.Group>

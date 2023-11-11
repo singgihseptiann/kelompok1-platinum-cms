@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const ListCarComponent = () => {
   const [cars, setCars] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [carDeletedMessage, setCarDeletedMessage] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -94,6 +95,10 @@ const ListCarComponent = () => {
       });
 
       setCars((prevCars) => prevCars.filter((car) => car.id !== selectedCar.id));
+      setCarDeletedMessage("Car has successfully been deleted!");
+      setTimeout(() => {
+        setCarDeletedMessage("");
+      }, 1000);
     } catch (error) {
       console.error("Error deleting car:", error);
     }
@@ -137,6 +142,7 @@ const ListCarComponent = () => {
               </Col>
             </Row>
             <Row className="mt-5">
+              {carDeletedMessage && <div className="alert alert-success">{carDeletedMessage}</div>}
               {filteredCars.map((car) => (
                 <Col xs={12} md={6} lg={3} key={car.id}>
                   <div className="d-lg-flex align-content-center justify-content-between">

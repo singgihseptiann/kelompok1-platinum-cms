@@ -21,27 +21,34 @@ const Login = () => {
   const handleSubmit = async () => {
     setLoad(true);
     try {
-      const res = await axios.post(
-        "https://api-car-rental.binaracademy.org/admin/auth/login",
-        {
-          email: form.email,
-          password: form.password,
-        }
-      );
-      if (res.status === 201) {
+      const res = await axios.post("https://api-car-rental.binaracademy.org/admin/auth/login", {
+        email: form.email,
+        password: form.password,
+        role: form.role,
+      });
+
+      // Sebagai alternatif, pastikan bahwa response memiliki properti 'data' yang menunjukkan keberhasilan login.
+      if (res.data && res.data.access_token) {
+        setLoad(false);
+        setForm({ email: "", password: "" }); // Bersihkan formulir setelah login berhasil
         setSuccess("Berhasil Login!");
         setTimeout(() => {
           navigate("/dashboard");
         }, 1500);
         dispatch(registerAuth(res.data));
         localStorage.setItem("token", res.data.access_token);
+      } else {
+        // Tanggapi jika data yang diberikan tidak sesuai dengan yang diharapkan
+        setError("Gagal Login");
+        setLoad(false);
       }
-      setLoad(false);
     } catch (error) {
-      setError('Email atau password yang anda masukkan salah!');
-      setTimeout(() => {
-        setError("");
-      }, 2500);
+      // Tanggapi kesalahan 401 dari API
+      if (error.response && error.response.status === 401) {
+        setError("Email atau password yang Anda masukkan salah!");
+      } else {
+        setError("Terjadi kesalahan saat melakukan login.");
+      }
       setLoad(false);
     }
   };
@@ -66,25 +73,13 @@ const Login = () => {
             <div className="email">
               <label htmlFor="email">Email</label>
               <br />
-              <input
-                type="email"
-                placeholder="Example: johndee@gmail.com"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
+              <input type="email" placeholder="Example: johndee@gmail.com" name="email" value={form.email} onChange={handleChange} />
             </div>
 
             <div className="password">
               <label htmlFor="password">Password</label>
               <br />
-              <input
-                type="password"
-                placeholder="6+ characters"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-              />
+              <input type="password" placeholder="6+ characters" name="password" value={form.password} onChange={handleChange} />
             </div>
             <button disabled={load} onClick={handleSubmit}>
               {load ? "Loading..." : "Sign In"}
