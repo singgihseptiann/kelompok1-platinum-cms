@@ -24,31 +24,32 @@ const Login = () => {
       const res = await axios.post("https://api-car-rental.binaracademy.org/admin/auth/login", {
         email: form.email,
         password: form.password,
-        role: form.role,
       });
 
-      // Sebagai alternatif, pastikan bahwa response memiliki properti 'data' yang menunjukkan keberhasilan login.
-      if (res.data && res.data.access_token) {
-        setLoad(false);
-        setForm({ email: "", password: "" }); // Bersihkan formulir setelah login berhasil
+      if (res.status === 201) {
+        const { access_token, role } = res.data;
+
+        if (role !== "Admin") {
+          setLoad(false);
+          setError("Anda tidak memiliki izin untuk masuk."); // Pesan kesalahan khusus untuk peran yang tidak sesuai
+          setTimeout(() => {
+            setError("");
+          }, 2500);
+          return;
+        }
+
         setSuccess("Berhasil Login!");
         setTimeout(() => {
           navigate("/dashboard");
         }, 1500);
-        dispatch(registerAuth(res.data));
-        localStorage.setItem("token", res.data.access_token);
-      } else {
-        // Tanggapi jika data yang diberikan tidak sesuai dengan yang diharapkan
-        setError("Gagal Login");
-        setLoad(false);
+        dispatch(registerAuth({ access_token, role }));
+        localStorage.setItem("token", access_token);
       }
     } catch (error) {
-      // Tanggapi kesalahan 401 dari API
-      if (error.response && error.response.status === 401) {
-        setError("Email atau password yang Anda masukkan salah!");
-      } else {
-        setError("Terjadi kesalahan saat melakukan login.");
-      }
+      setError("Email atau password yang anda masukkan salah atau Anda tidak memiliki izin untuk masuk.");
+      setTimeout(() => {
+        setError("");
+      }, 2500);
       setLoad(false);
     }
   };
