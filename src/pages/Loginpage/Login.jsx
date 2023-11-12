@@ -31,7 +31,7 @@ const Login = () => {
 
         if (role !== "Admin") {
           setLoad(false);
-          setError("Anda tidak memiliki izin untuk masuk."); // Pesan kesalahan khusus untuk peran yang tidak sesuai
+          setError("Anda tidak memiliki izin untuk masuk.");
           setTimeout(() => {
             setError("");
           }, 2500);

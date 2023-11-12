@@ -3,35 +3,15 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import Topbar from "../Topbar/Topbar";
 import { Breadcrumb } from "react-bootstrap";
-import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-  //  CDBSidebarSubmenu,s
-} from "cdbreact";
+import { CDBSidebar, CDBSidebarContent, CDBSidebarFooter, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem } from "cdbreact";
 
-import SideNav, {
-  Toggle,
-  Nav,
-  NavItem,
-  NavIcon,
-  NavText,
-} from "@trendmicro/react-sidenav";
+import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 
-// Be sure to include styles at some point, probably during your bootstraping
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 const Sidebar = () => {
   return (
-    <SideNav
-      style={{ backgroundColor: "#0D28A6" }}
-      onSelect={(selected) => {
-        // Add your code here
-      }}
-    >
+    <SideNav style={{ backgroundColor: "#0D28A6" }} onSelect={(selected) => {}}>
       <SideNav.Toggle />
 
       <NavItem eventKey="home" backgroundColor="white">

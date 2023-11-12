@@ -1,51 +1,25 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Container,
-  Button,
-  Form,
-  InputGroup,
-  Breadcrumb,
-} from "react-bootstrap";
+import { Row, Col, Container, Button, Form, InputGroup, Breadcrumb } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import moment from "moment";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AiOutlineRight } from "react-icons/ai";
-import {
-  Chart as ChartJS,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const BarChartComponent = () => {
   const [apiData, setApiData] = useState([]);
-  const [selectedMonth, setSelectedMonth] = useState(
-    moment().format("YYYY-MM")
-  );
+  const [selectedMonth, setSelectedMonth] = useState(moment().format("YYYY-MM"));
   const [chartData, setChartData] = useState([]);
 
   const token = useSelector((state) => state.auth.token);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const baseUrl =
-          "https://api-car-rental.binaracademy.org/admin/order/reports";
+        const baseUrl = "https://api-car-rental.binaracademy.org/admin/order/reports";
         const fromDate = "2023-01-01";
         const untilDate = "2023-12-31";
         const fullUrl = `${baseUrl}?from=${fromDate}&until=${untilDate}`;
@@ -74,15 +48,8 @@ const BarChartComponent = () => {
     if (selectedMonth) {
       const selectedYear = selectedMonth.split("-")[0];
       const selectedMonthNumber = parseInt(selectedMonth.split("-")[1]);
-      const daysInMonth = moment(
-        `${selectedYear}-${selectedMonthNumber}`,
-        "YYYY-MM"
-      ).daysInMonth();
-      const datesArray = Array.from({ length: daysInMonth }, (_, i) =>
-        moment(`${selectedYear}-${selectedMonthNumber}-${i + 1}`).format(
-          "YYYY-MM-DD"
-        )
-      );
+      const daysInMonth = moment(`${selectedYear}-${selectedMonthNumber}`, "YYYY-MM").daysInMonth();
+      const datesArray = Array.from({ length: daysInMonth }, (_, i) => moment(`${selectedYear}-${selectedMonthNumber}-${i + 1}`).format("YYYY-MM-DD"));
 
       const chartDataMapped = datesArray.map((date) => {
         const dataForDate = apiData.find((item) => item.day === date);
@@ -183,13 +150,7 @@ const BarChartComponent = () => {
                 <Form.Group controlId="input2">
                   <Form.Label className="fw-bold">Month</Form.Label>
                   <InputGroup>
-                    <Form.Select
-                      aria-label="Default select example"
-                      name="month"
-                      style={{ maxWidth: "200px" }}
-                      onChange={handleMonthChange}
-                      value={selectedMonth}
-                    >
+                    <Form.Select aria-label="Default select example" name="month" style={{ maxWidth: "200px" }} onChange={handleMonthChange} value={selectedMonth}>
                       <option value="">Select a month</option>
                       <option value="2023-01">January - 2023</option>
                       <option value="2023-02">February - 2023</option>
