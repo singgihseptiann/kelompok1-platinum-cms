@@ -96,8 +96,8 @@ const ResultCar = ({ formatToIDR }) => {
         ) : (
           <Row>
             {data.map((car) => (
-              <Fragment>
-                <Col md={4} key={car.id}>
+              <Fragment key={car.id}>
+                <Col md={4}>
                   <Card style={{ marginTop: "30px" }}>
                     <Card.Img variant="top" src={car.image} />
                     <Card.Body>
